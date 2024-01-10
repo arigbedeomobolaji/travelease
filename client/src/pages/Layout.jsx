@@ -9,7 +9,7 @@ export default function Layout() {
     <div
       onClickCapture={() => {
         setCurrent("");
-        setToggleDate(false)
+        setToggleDate(false);
       }}
     >
       <Header />

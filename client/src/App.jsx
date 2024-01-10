@@ -7,8 +7,25 @@ export const AppContext = createContext();
 function App() {
   const [current, setCurrent] = useState("");
   const [toggleDate, setToggleDate] = useState(false);
+  const [toggleGuest, setToggleGuest] = useState(false);
+  const [guests, setGuests] = useState({
+    adults: 0,
+    children: 0,
+    infants: 0,
+  });
   return (
-    <AppContext.Provider value={{ current, setCurrent, toggleDate, setToggleDate }}>
+    <AppContext.Provider
+      value={{
+        current,
+        setCurrent,
+        toggleDate,
+        setToggleDate,
+        toggleGuest,
+        setToggleGuest,
+        guests,
+        setGuests,
+      }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>

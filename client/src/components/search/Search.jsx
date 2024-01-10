@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css"; // main style file
@@ -6,6 +7,23 @@ import { DateRangePicker, DateRange } from "react-date-range";
 import { useMediaQuery } from "@react-hook/media-query";
 import { AppContext } from "../../App";
 import Filter from "./Filter";
+import MenuItem from "../Menu";
+
+const data = [
+  {
+    id: "adults",
+    guestGroup: "Adults",
+    description: "Ages 13 or above",
+    borderBottom: true,
+  },
+  {
+    id: "children",
+    guestGroup: "Children",
+    description: "Ages 2–12",
+    borderBottom: true,
+  },
+  { id: "infants", guestGroup: "Infants", description: "Under 2" },
+];
 
 function Boundary({ current }) {
   return (
@@ -18,10 +36,10 @@ function Boundary({ current }) {
 }
 export default function Search() {
   const [search, setSearch] = useState("");
-  const { current, setCurrent, toggleDate } = useContext(AppContext);
+  const { current, setCurrent, toggleDate, toggleGuest, guests } =
+    useContext(AppContext);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [guests, setGuests] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 36rem)");
   const isLargeScreen = useMediaQuery("(max-width: 900px)");
 
@@ -48,7 +66,7 @@ export default function Search() {
           label="search"
           value={search}
           handleChange={setSearch}
-          width={"350px"}
+          width={"200px"}
           title={"Where"}
           current={current}
           setCurrent={setCurrent}
@@ -60,7 +78,7 @@ export default function Search() {
           label="checkIn"
           value={startDate}
           handleChange={setStartDate}
-          width={"200px"}
+          width={"300px"}
           title={"Check in"}
           current={current}
           setCurrent={setCurrent}
@@ -73,19 +91,20 @@ export default function Search() {
           label="checkOut"
           value={endDate}
           handleChange={setEndDate}
-          width={"200px"}
+          width={"150px"}
           title={"Check in"}
           current={current}
           setCurrent={setCurrent}
           readOnly={true}
         />
+        <Boundary current={current} />
         {/* Guest */}
         <Filter
           placeholder="Guests"
           label="guest"
           value={guests}
-          handleChange={setGuests}
-          width={"340px"}
+          handleChange={toggleGuest}
+          width={"370px"}
           title={"Who"}
           readOnly
           current={current}
@@ -113,6 +132,13 @@ export default function Search() {
               />
             )
           ) : null}
+          {toggleGuest && (
+            <div className="w-[300px] shadow-md absolute z-20 bg-white right-10 top-0">
+              {data.map((datum) => (
+                <MenuItem key={datum.guestGroup} {...datum} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
