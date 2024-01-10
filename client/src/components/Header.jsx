@@ -60,7 +60,7 @@ export default function Header() {
               {/* Menu */}
 
               {toggleMenu && (
-                <div className="absolute top-20 right-0 shadow-md shadow-red-50 z-30 bg-white">
+                <div className="absolute top-20 right-0 shadow-md shadow-red-50 z-50 bg-white">
                   <div key="items" mode="vertical" className="w-[200px]">
                     {authItems.map((item) => (
                       <MenuItem

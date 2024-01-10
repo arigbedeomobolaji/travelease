@@ -7,18 +7,22 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "hmr": "vite --debug hmr"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@react-hook/media-query": "^1.1.1",
     "antd": "^5.12.8",
     "date-fns": "^3.2.0",
+    "madge": "^6.1.0",
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-icons": "^5.0.0",
+    "react-router-dom": "^6.21.1",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker, DateRange } from "react-date-range";
 import { useMediaQuery } from "@react-hook/media-query";
 import { AppContext } from "../../App";
@@ -13,7 +11,7 @@ const data = [
   {
     id: "adults",
     guestGroup: "Adults",
-    description: "Ages 13 or above",
+    description: "Ages 13 or aboveeeee",
     borderBottom: true,
   },
   {
@@ -133,7 +131,7 @@ export default function Search() {
             )
           ) : null}
           {toggleGuest && (
-            <div className="w-[300px] shadow-md absolute z-20 bg-white right-10 top-0">
+            <div className="w-[300px] shadow-md absolute z-40 bg-white right-10 top-0">
               {data.map((datum) => (
                 <MenuItem key={datum.guestGroup} {...datum} />
               ))}

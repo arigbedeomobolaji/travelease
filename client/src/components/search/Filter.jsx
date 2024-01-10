@@ -35,6 +35,7 @@ export default function Filter({
     display = value;
   }
 
+  //   When one of the search field is clicked.
   function handleFilterClick() {
     setCurrent(label);
     if (label === "checkIn" || label === "checkOut") {
@@ -45,6 +46,7 @@ export default function Filter({
       setToggleDate(false);
     }
   }
+
   return (
     <div
       className={`${

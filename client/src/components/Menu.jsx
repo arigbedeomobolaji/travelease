@@ -26,7 +26,7 @@ export default function MenuItem({
   function Icon({ label, handleClick, disabled }) {
     return (
       <button
-        className="w-8 h-8 rounded-full bg-gray-100 p-1 hover:border-black text-gray-500 border-solid border-gray-500 flex items-center justify-center"
+        className="hover:scale-105 w-8 h-8 rounded-full bg-gray-100 p-1 hover:border-black text-gray-500 border-solid border-gray-500 flex items-center justify-center"
         onClick={handleClick}
         disabled={disabled}
       >

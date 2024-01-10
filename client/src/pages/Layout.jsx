@@ -12,8 +12,13 @@ export default function Layout() {
         setToggleDate(false);
       }}
     >
-      <Header />
-      <Outlet />
+      <div className="z-50">
+        <Header />
+      </div>
+      <div className="z-30">
+        <Outlet />
+      </div>
+
       <Footer />
     </div>
   );

@@ -30,7 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/register" element={<p>Register</p>} />
+            <Route path="/register" element={<p>Register now</p>} />
             <Route path="/login" element={<p>Login</p>} />
           </Route>
         </Routes>
