@@ -4,6 +4,7 @@ import SubFilters from "../components/SubFilters";
 import { Divider } from "antd";
 import MediumCard from "../components/MediumCard";
 import { services } from "../data/services";
+import Container from "../components/Container";
 
 export default function Home() {
   const { setToggleGuest, setToggleDate } = useContext(AppContext);
@@ -15,7 +16,7 @@ export default function Home() {
         setToggleDate(false);
       }}
     >
-      <div className="max-w-[1600px] mx-5 lg:mx-auto relative z-10">
+      <Container>
         <SubFilters />
         <Divider className="m-0 p-0 border-b-2 border-b-red-50" />
         <div className="flex flex-wrap gap-5 py-5 justify-start mx-5 md:justify-start">
@@ -23,7 +24,7 @@ export default function Home() {
             return <MediumCard key={service.serviceId + index} {...service} />;
           })}
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

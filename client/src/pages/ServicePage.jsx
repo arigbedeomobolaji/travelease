@@ -7,6 +7,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import IconStyle from "../components/IconStyle";
 import PhotosPreviewModal from "../components/modal/PhotosPreviewModal";
 import { useState } from "react";
+import Container from "../components/Container";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function ServicePage() {
   return (
     <>
       <div className="pt-7 font-roboto">
-        <div className="max-w-[1500px] mx-5 xl:mx-auto">
+        <Container>
           {/* Category / Like and Share */}
           <div className="flex justify-between items-center gap-5">
             <h1 className="text-[25px] md:text-[35px] font-extrabold">
@@ -51,7 +52,7 @@ export default function ServicePage() {
               </h1>
             </div>
           ) : null}
-        </div>
+        </Container>
       </div>
       {/* Modal codes goes here */}
       <PhotosPreviewModal

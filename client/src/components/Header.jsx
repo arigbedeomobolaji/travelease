@@ -5,6 +5,7 @@ import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import Search from "./search/Search";
 import { useMediaQuery } from "@react-hook/media-query";
 import LoginRegister from "./modal/LoginProcess/LoginRegister";
+import Container from "./Container";
 
 const authItems = [
   {
@@ -54,7 +55,7 @@ export default function Header() {
   return (
     <>
       <div className="shadow-md shadow-red-50 drop-shadow-sm font-lato py-5 relative z-20">
-        <div className="mx-4 max-w-[1600px] xl:mx-auto">
+        <Container>
           <div className="h-20 flex justify-between items-center">
             <div>
               <Link to={"/"}>
@@ -124,7 +125,7 @@ export default function Header() {
             </div>
           </div>
           {!isVerySmallScreen && <Search />}
-        </div>
+        </Container>
       </div>
       {/* Modal codes comes here */}
       <LoginRegister
