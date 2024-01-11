@@ -3,12 +3,16 @@ import { useParams } from "react-router-dom";
 import { services } from "../data/services";
 import useScreenSize from "../hooks/useScreenSize";
 import { IoMdShare } from "react-icons/io";
+import { Divider } from "antd";
 import { MdFavoriteBorder } from "react-icons/md";
 import IconStyle from "../components/IconStyle";
 import PhotosPreviewModal from "../components/modal/PhotosPreviewModal";
 import { useState } from "react";
 import Container from "../components/Container";
 import PreviewManyPhotos from "../components/PreviewManyPhotos";
+import { Typography } from "@material-tailwind/react";
+import { FaStar } from "react-icons/fa";
+import ReservationCard from "../components/ReservationCard";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
@@ -25,7 +29,7 @@ export default function ServicePage() {
         <Container>
           {/* Category / Like and Share */}
           <div className="flex justify-between items-center gap-5">
-            <h1 className="text-[25px] md:text-[35px] font-extrabold">
+            <h1 className="text-[25px] md:text-[35px] font-extrabold transition-all ease-linear">
               {service.serviceCategory}
             </h1>
             <div className="flex justify-between items-center gap-5">
@@ -57,6 +61,39 @@ export default function ServicePage() {
             ) : (
               <PreviewManyPhotos images={service.serviceImages} />
             )}
+          </div>
+          {/* Details about service */}
+          <div className="flex flex-col gap-2">
+            {/* <h1 className="block md:hidden opacity-1 text-[25px] md:text-[35px] font-extrabold transition-all">
+              {service.serviceCategory}
+            </h1> */}
+            <Typography
+              variant={`${
+                isVerySmallScreen ? "h6" : isTabletScreen ? "h5" : "h4"
+              }`}
+              className="pt-3 font-roboto"
+            >
+              Comfortable Room in {service.company}, {service.serviceState}
+            </Typography>
+
+            <div className="flex h-full items-center">
+              <FaStar />
+              <span className="text-gray-500 font-normal text-lg">
+                {service.serviceRating || "New"}
+              </span>
+            </div>
+            <Typography variant="paragraph" className="font-lato text-justify">
+              {service.companyDescription}
+            </Typography>
+          </div>
+          <Divider />
+          {/* Payment and Reservation */}
+
+          <div className="text-[16px] leading-5 w-full lg:w-1/2 inline-block pr-4 text-justify">
+            {service.companyDescription}
+          </div>
+          <div className="hidden lg:inline-block text-[20px] sticky top-20 w-1/2 align-top pl-5 lg:pl-10">
+            <ReservationCard price={service.servicePrice} />
           </div>
         </Container>
       </div>

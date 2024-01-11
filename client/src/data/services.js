@@ -4,6 +4,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Mercy Land Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Beoba",
     serviceLocation: "Aminu Kano Crescent, Wuse",
     serviceState: "Abuja",
@@ -41,6 +43,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Deluxe",
     company: "Grace Limited",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Sally",
     serviceLocation: "Ajao Estate, Ikeja",
     serviceState: "Lagos",
@@ -67,6 +71,8 @@ export const services = [
     serviceCategory: "Events",
     servicePackage: "Classic",
     company: "Mercy Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Sommer",
     serviceLocation: "Mando",
     serviceState: "Kaduna",
@@ -104,6 +110,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Classic",
     company: "Leisure Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Assaulter",
     serviceLocation: "Ring Road, Osogbo",
     serviceState: "Osun",
@@ -141,6 +149,8 @@ export const services = [
     serviceCategory: "Apartment",
     servicePackage: "Deluxe",
     company: "Lux Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Dux",
     serviceLocation: "Aminu Kano, Wuse",
     serviceState: "Abuja",
@@ -178,6 +188,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Funfair Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Leisurely",
     serviceLocation: "Obasanjo Way, Asaba",
     serviceState: "Enugu",
@@ -215,6 +227,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Vox",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Voxer",
     serviceLocation: "Aminu Kano Crescent, Wuse",
     serviceState: "Abuja",
@@ -252,6 +266,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Mercy Land Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Summer",
     serviceLocation: "Alagbaka",
     serviceState: "Akure",
@@ -289,6 +305,8 @@ export const services = [
     serviceCategory: "Hotels",
     servicePackage: "Deluxe",
     company: "Incorporately Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Chatty",
     serviceLocation: "Benue Links, Makurdi",
     serviceState: "Benue",
@@ -326,6 +344,8 @@ export const services = [
     serviceCategory: "Events",
     servicePackage: "Executive",
     company: "Sandbest Inc",
+    companyDescription:
+      "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "SandWork",
     serviceLocation: "Sabo, Kano",
     serviceState: "Kano",
