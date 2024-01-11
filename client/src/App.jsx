@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import { createContext, useState } from "react";
+import ServicePage from "./pages/ServicePage";
 export const AppContext = createContext();
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/service/:id" element={<p>Register now</p>} />
+            <Route path="/services/:serviceId" element={<ServicePage />} />
             <Route path="/login" element={<p>Login</p>} />
           </Route>
         </Routes>

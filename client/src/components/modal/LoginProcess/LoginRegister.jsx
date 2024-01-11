@@ -43,11 +43,15 @@ export default function LoginRegister({ open, handleOpenAuthModal, label }) {
     <>
       <Dialog
         size="xs"
+        animate={{
+          mount: { scale: 1, y: 50 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
         open={open}
         handler={handleOpenAuthModal}
         className="bg-transparent shadow-md font-roboto"
       >
-        <Card className="mx-auto w-full max-w-[24rem]">
+        <Card className="mx-auto w-full max-w-[28rem]">
           <CardBody className="flex flex-col gap-4">
             <div className="w-full flex items-center justify-center pt-7 py-5">
               <img

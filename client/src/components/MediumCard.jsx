@@ -4,6 +4,7 @@ import { MdLogin } from "react-icons/md";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import SwiperCard from "./SwiperCard";
+import { useNavigate } from "react-router-dom";
 
 export default function MediumCard({
   serviceLocation,
@@ -11,23 +12,22 @@ export default function MediumCard({
   servicePrice,
   serviceRating,
   serviceImages,
+  serviceId,
 }) {
-  console.log({
-    serviceLocation,
-    serviceState,
-    servicePrice,
-    serviceRating,
-    serviceImages,
-    serviceId,
-  });
   const [liked, setLiked] = useState(false);
-  console.log(serviceId);
+  const navigate = useNavigate();
+  function goToServicePage() {
+    navigate(`/services/${serviceId}`);
+  }
   return (
     <div className="flex flex-col max-w-[600px] md:w-[350px] xl:w-[300px] font-roboto shadow-md shadow-red-50">
       <div className="bg-red-50 rounded-md relative w-full flex flex-grow h-[300px]  md:h-[300px]">
         <SwiperCard images={serviceImages} />
         <div className="absolute top-3 right-3 left-5 flex items-center justify-between ">
-          <div className="bg-gray-50 rounded-full px-5 py-2 text-sm text-red-500 font-bold flex items-center gap-2">
+          <div
+            className="bg-gray-50 rounded-full px-5 py-2 text-sm text-red-500 font-bold flex items-center gap-2 cursor-pointer"
+            onClick={goToServicePage}
+          >
             Book
             <MdLogin className="text-20px" />
           </div>
