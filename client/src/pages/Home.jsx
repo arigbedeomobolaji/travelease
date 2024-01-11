@@ -3,6 +3,7 @@ import { AppContext } from "../App";
 import SubFilters from "../components/SubFilters";
 import { Divider } from "antd";
 import MediumCard from "../components/MediumCard";
+import { services } from "../data/services";
 
 export default function Home() {
   const { setToggleGuest, setToggleDate } = useContext(AppContext);
@@ -17,16 +18,10 @@ export default function Home() {
       <div className="max-w-[1600px] mx-5 lg:mx-auto relative z-10">
         <SubFilters />
         <Divider className="m-0 p-0 border-b-2 border-b-red-50" />
-        <div className="flex flex-wrap gap-5 py-5 justify-start mx-5 md:justify-between">
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
-          <MediumCard rating={5} />
+        <div className="flex flex-wrap gap-5 py-5 justify-start mx-5 md:justify-start">
+          {services.map((service, index) => {
+            return <MediumCard key={service.serviceId + index} {...service} />;
+          })}
         </div>
       </div>
     </div>

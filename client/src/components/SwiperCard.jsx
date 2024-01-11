@@ -5,9 +5,9 @@ import { Carousel } from "@material-tailwind/react";
 export default function SwiperCard({ images }) {
   return (
     <Carousel className="rounded-xl">
-      {images.map((image) => (
+      {images.map((image, index) => (
         <img
-          key={image.id}
+          key={image.id + index}
           src={image.src}
           loading="lazy"
           alt="test Image"
