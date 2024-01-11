@@ -20,7 +20,7 @@ export default function MediumCard({
     navigate(`/services/${serviceId}`);
   }
   return (
-    <div className="flex flex-col max-w-[600px] md:w-[350px] xl:w-[300px] font-roboto shadow-md shadow-red-50">
+    <div className="flex flex-col max-w-[6=1000px] md:max-w-[500px] xl:max-w-[600px] font-roboto shadow-md shadow-red-50">
       <div className="bg-red-50 rounded-md relative w-full flex flex-grow h-[300px]  md:h-[300px]">
         <SwiperCard images={serviceImages} />
         <div className="absolute top-3 right-3 left-5 flex items-center justify-between ">

@@ -8,12 +8,14 @@ import IconStyle from "../components/IconStyle";
 import PhotosPreviewModal from "../components/modal/PhotosPreviewModal";
 import { useState } from "react";
 import Container from "../components/Container";
+import PreviewManyPhotos from "../components/PreviewManyPhotos";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
   const { serviceId } = useParams();
   const service = services.find((service) => (service.id = serviceId));
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
+  console.log(service.serviceImages);
   function handlePhotoPreviewModal() {
     setOpen((cur) => !cur);
   }
@@ -40,18 +42,22 @@ export default function ServicePage() {
             </div>
           </div>
           {/* Service Images */}
-          {isTabletScreen ? (
-            <div className="relative pt-5" onClick={handlePhotoPreviewModal}>
-              <img
-                className="h-96 w-full object-cover object-center rounded-lg"
-                src={service.serviceImages[0].src}
-                alt={service.serviceImages[0].id}
-              />
-              <h1 className="absolute bottom-0 right-0 font-extrabold text-white text-[20px] bg-red-300 px-5 p-1 rounded-tl-lg">
-                1/{service.serviceImages.length}
-              </h1>
-            </div>
-          ) : null}
+          <div onClick={handlePhotoPreviewModal}>
+            {isTabletScreen ? (
+              <div className="relative pt-5">
+                <img
+                  className="h-96 w-full object-cover object-center rounded-lg"
+                  src={service.serviceImages[0].src}
+                  alt={service.serviceImages[0].id}
+                />
+                <h1 className="absolute bottom-0 right-0 font-extrabold text-white text-[20px] bg-red-300 px-5 p-1 rounded-tl-lg">
+                  1/{service.serviceImages.length}
+                </h1>
+              </div>
+            ) : (
+              <PreviewManyPhotos images={service.serviceImages} />
+            )}
+          </div>
         </Container>
       </div>
       {/* Modal codes goes here */}
