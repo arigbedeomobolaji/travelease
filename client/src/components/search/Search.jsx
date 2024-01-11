@@ -39,7 +39,7 @@ export default function Search() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const isSmallScreen = useMediaQuery("(max-width: 36rem)");
-  const isLargeScreen = useMediaQuery("(max-width: 900px)");
+  const isLargeScreen = useMediaQuery("(min-width: 900px)");
 
   const selectionRange = {
     startDate,
@@ -108,6 +108,13 @@ export default function Search() {
           current={current}
           setCurrent={setCurrent}
         />
+        {toggleGuest && (
+          <div className="w-[300px] shadow-md absolute z-40 bg-white right-0 sm:right-52 lg:right-52  top-20">
+            {data.map((datum) => (
+              <MenuItem key={datum.guestGroup} {...datum} />
+            ))}
+          </div>
+        )}
         <div className="absolute top-20 left-0 right-0 flex items-center justify-center">
           {toggleDate ? (
             isSmallScreen ? (
@@ -126,17 +133,11 @@ export default function Search() {
                 showDateDisplay={false}
                 minDate={new Date()}
                 retainEndDateOnFirstSelection={true}
-                months={isLargeScreen ? 1 : 2}
+                months={isLargeScreen ? 2 : 1}
               />
             )
           ) : null}
-          {toggleGuest && (
-            <div className="w-[300px] shadow-md absolute z-40 bg-white right-10 top-0">
-              {data.map((datum) => (
-                <MenuItem key={datum.guestGroup} {...datum} />
-              ))}
-            </div>
-          )}
+          {/* Paste back here */}
         </div>
       </div>
     </div>
