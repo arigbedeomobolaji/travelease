@@ -5,23 +5,9 @@ import { DateRangePicker, DateRange } from "react-date-range";
 import { useMediaQuery } from "@react-hook/media-query";
 import { AppContext } from "../../App";
 import Filter from "./Filter";
-import MenuItem from "../Menu";
-
-const data = [
-  {
-    id: "adults",
-    guestGroup: "Adults",
-    description: "Ages 13 or aboveeeee",
-    borderBottom: true,
-  },
-  {
-    id: "children",
-    guestGroup: "Children",
-    description: "Ages 2–12",
-    borderBottom: true,
-  },
-  { id: "infants", guestGroup: "Infants", description: "Under 2" },
-];
+// import MenuItem from "../Menu";
+// import { guestData } from "../../data/data";
+import GuestsFilterMenu from "../GuestsFilterMenu";
 
 function Boundary({ current }) {
   return (
@@ -110,9 +96,10 @@ export default function Search() {
         />
         {toggleGuest && (
           <div className="w-[300px] shadow-md absolute z-40 bg-white right-0 sm:right-52 lg:right-52  top-20">
-            {data.map((datum) => (
+            {/* {guestData.map((datum) => (
               <MenuItem key={datum.guestGroup} {...datum} />
-            ))}
+            ))} */}
+            <GuestsFilterMenu />
           </div>
         )}
         <div className="absolute top-20 left-0 right-0 flex items-center justify-center">

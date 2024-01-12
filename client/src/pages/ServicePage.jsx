@@ -13,13 +13,13 @@ import PreviewManyPhotos from "../components/PreviewManyPhotos";
 import { Typography } from "@material-tailwind/react";
 import { FaStar } from "react-icons/fa";
 import ReservationCard from "../components/ReservationCard";
+import InlineContainer from "../components/InlineContainer";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
   const { serviceId } = useParams();
   const service = services.find((service) => (service.id = serviceId));
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
-  console.log(service.serviceImages);
   function handlePhotoPreviewModal() {
     setOpen((cur) => !cur);
   }
@@ -89,9 +89,22 @@ export default function ServicePage() {
           <Divider />
           {/* Payment and Reservation */}
 
-          <div className="text-[16px] leading-5 w-full lg:w-1/2 inline-block pr-4 text-justify">
-            {service.companyDescription}
-          </div>
+          <InlineContainer>
+            <p className="leading-7">{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+            <p>{service.companyDescription}</p>
+            <Divider />
+          </InlineContainer>
           <div className="hidden lg:inline-block text-[20px] sticky top-20 w-1/2 align-top pl-5 lg:pl-10">
             <ReservationCard price={service.servicePrice} />
           </div>
