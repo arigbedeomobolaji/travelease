@@ -2,25 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+@layer components {
+  .smallHeading {
+    @apply text-[27px] font-lato text-gray-800 font-semibold;
+  }
+  .smallerHeading {
+    @apply text-[23px] font-lato text-gray-700 font-normal;
+  }
+  .btn-icon {
+    @apply outline-none border-none bg-gray-700/50 hover:bg-gray-600/50 hover:scale-105 w-10 h-10 rounded-full flex items-center justify-center;
+  }
 }

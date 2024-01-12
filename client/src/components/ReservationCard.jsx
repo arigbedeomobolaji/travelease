@@ -36,8 +36,7 @@ export default function ReservationCard({ price }) {
       ...prevGuests,
       adults: 1,
     }));
-  }, []);
-  console.log(guests);
+  }, [setGuests]);
   return (
     <div className="rounded-md flex flex-col bg-white shadow-md shadow-red-50 min-h-[100px] p-5 border-solid border border-red-50 md:px-14 md:py-14">
       <h1 className="font-bold font-lato text-[20px] py-2">
