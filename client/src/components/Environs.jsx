@@ -31,7 +31,7 @@ function Environ({ label, image }) {
         <FaKitchenSet className="text-[33px] text-gray-800" />
         <FaWarehouse className="text-[33px] text-gray-800" />
       </div>
-      <h1 className="smallerHeading">{label}</h1>
+      <h1 className="smaller-heading">{label}</h1>
       <img
         src={image}
         alt={label}
@@ -46,7 +46,6 @@ export default function Environs() {
 
   //   Add scroll to carousel
   const handleScrollClick = (direction) => {
-    console.log(direction);
     const container = environsRef.current;
     const scrollAmount = 100;
     container.scrollBy({
@@ -56,7 +55,7 @@ export default function Environs() {
   };
   return (
     <div className="relative">
-      <h1 className="smallHeading">Environs</h1>
+      <h1 className="small-heading">Environs</h1>
       <div className="flex justify-between items-center bg-none absolute left-0 right-0 top-1/2 z-20">
         <button onClick={() => handleScrollClick("right")} className="btn-icon">
           <FaChevronLeft />

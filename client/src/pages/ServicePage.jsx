@@ -16,6 +16,7 @@ import ReservationCard from "../components/ReservationCard";
 import InlineContainer from "../components/InlineContainer";
 import WhatYouEnjoy from "../components/WhatYouEnjoy";
 import Environs from "../components/Environs";
+import DatePicker from "../components/DatePicker";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
@@ -98,6 +99,7 @@ export default function ServicePage() {
             <Divider />
             <WhatYouEnjoy />
             <Divider />
+            <DatePicker />
           </InlineContainer>
           <div className="hidden lg:inline-block text-[20px] sticky top-20 lg:w-1/2 xl:w-2/5 align-top pl-5 lg:pl-10">
             <ReservationCard price={service.servicePrice} />

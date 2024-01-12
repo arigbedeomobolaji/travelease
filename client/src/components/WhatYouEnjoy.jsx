@@ -1,25 +1,23 @@
-import { TbSunElectricity } from "react-icons/tb";
-import { AiOutlineEnvironment } from "react-icons/ai";
-import { MdOutlineSecurity, MdNoMealsOuline } from "react-icons/md";
+import DynamicIcons from "./DynamicIcons";
 
 const offers = [
   {
-    Icon: TbSunElectricity,
+    Icon: "TbSunElectricity",
     label: "24/7 Electricity",
     id: 1,
   },
   {
-    Icon: AiOutlineEnvironment,
+    Icon: "AiOutlineEnvironment",
     label: "Serene View",
     id: 1,
   },
   {
-    Icon: MdOutlineSecurity,
+    Icon: "MdOutlineSecurity",
     label: "Maximum Security",
     id: 1,
   },
   {
-    Icon: MdNoMealsOuline,
+    Icon: "MdNoMealsOuline",
     label: "Sumptuous Meal",
     id: 1,
   },
@@ -28,7 +26,7 @@ const offers = [
 export default function WhatYouEnjoy() {
   return (
     <div>
-      <h1 className="smallHeading">What it offers</h1>
+      <h1 className="small-heading">What it offers</h1>
       {/* offers */}
       <div
         className={`grid grid-cols-1 ${
@@ -40,7 +38,11 @@ export default function WhatYouEnjoy() {
             key={id + index}
             className="flex justify-start items-center gap-1 pb-2 text-lg md:text-xl"
           >
-            <Icon className="text-gray-800 text-[25px]" />
+            <DynamicIcons
+              // iconSetsList={IconSetList}
+              iconName={Icon}
+              className="text-gray-800 text-[25px]"
+            />
             <p className="capitalize text-gray-700">{label}</p>
           </div>
         ))}

@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
-import { DateRangePicker, DateRange } from "react-date-range";
-import { useMediaQuery } from "@react-hook/media-query";
+// import { DateRangePicker, DateRange } from "react-date-range";
 import { AppContext } from "../../App";
 import Filter from "./Filter";
 // import MenuItem from "../Menu";
 // import { guestData } from "../../data/data";
 import GuestsFilterMenu from "../GuestsFilterMenu";
+import BaseDatePicker from "../BaseDatePicker";
+import useScreenSize from "../../hooks/useScreenSize";
 
 function Boundary({ current }) {
   return (
@@ -24,8 +25,7 @@ export default function Search() {
     useContext(AppContext);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const isSmallScreen = useMediaQuery("(max-width: 36rem)");
-  const isLargeScreen = useMediaQuery("(min-width: 900px)");
+  const { isTabletScreen } = useScreenSize();
 
   const selectionRange = {
     startDate,
@@ -103,28 +103,13 @@ export default function Search() {
           </div>
         )}
         <div className="absolute top-20 left-0 right-0 flex items-center justify-center">
-          {toggleDate ? (
-            isSmallScreen ? (
-              <DateRange
-                ranges={[selectionRange]}
-                onChange={handleDateChange}
-                rangeColors={["#FD5B61"]}
-                minDate={new Date()}
-              />
-            ) : (
-              <DateRangePicker
-                ranges={[selectionRange]}
-                onChange={handleDateChange}
-                rangeColors={["#FD5B61"]}
-                direction="horizontal"
-                showDateDisplay={false}
-                minDate={new Date()}
-                retainEndDateOnFirstSelection={true}
-                months={isLargeScreen ? 2 : 1}
-              />
-            )
-          ) : null}
-          {/* Paste back here */}
+          {toggleDate && (
+            <BaseDatePicker
+              selectionRange={selectionRange}
+              handleDateChange={handleDateChange}
+              isTabletScreen={isTabletScreen}
+            />
+          )}
         </div>
       </div>
     </div>

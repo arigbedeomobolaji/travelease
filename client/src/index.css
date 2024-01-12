@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @layer components {
-  .smallHeading {
+  .small-heading {
     @apply text-[27px] font-lato text-gray-800 font-semibold;
   }
-  .smallerHeading {
+  .smaller-heading {
     @apply text-[23px] font-lato text-gray-700 font-normal;
   }
   .btn-icon {

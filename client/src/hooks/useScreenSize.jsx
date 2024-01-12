@@ -4,11 +4,11 @@ export default function useScreenSize() {
   const isVerySmallScreen = useMediaQuery("(max-width: 450px)");
   const isSmallScreen = useMediaQuery("(max-width: 36rem)");
   const isTabletScreen = useMediaQuery("(max-width: 912px)");
-  const isLargeScreen = useMediaQuery("(min-width: 900px)");
+  const isVeryLargeScreen = useMediaQuery("(min-width: 1400px)");
 
   return {
     isSmallScreen,
-    isLargeScreen,
+    isVeryLargeScreen,
     isVerySmallScreen,
     isTabletScreen,
   };

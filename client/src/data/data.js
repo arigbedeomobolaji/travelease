@@ -13,3 +13,5 @@ export const guestData = [
   },
   { id: "infants", guestGroup: "Infants", description: "Under 2" },
 ];
+
+// export const IconSetList = ["fa", "fi", "md", "gi", "tb", "ai", "tfi"];
