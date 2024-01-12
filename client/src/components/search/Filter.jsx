@@ -19,7 +19,7 @@ export default function Filter({
   //   Values to be displayed in the filter box
   let display;
   if (label === "checkIn" || label === "checkOut") {
-    display = moment(value).format("DD-MM-yyyy");
+    display = value ? moment(value).format("DD-MM-yyyy") : "";
   } else if (label === "guest") {
     if (value.adults || value.children || value.infants) {
       display = "";

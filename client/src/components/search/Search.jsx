@@ -23,8 +23,8 @@ export default function Search() {
   const [search, setSearch] = useState("");
   const { current, setCurrent, toggleDate, toggleGuest, guests } =
     useContext(AppContext);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const { isTabletScreen } = useScreenSize();
 
   const selectionRange = {
@@ -108,6 +108,7 @@ export default function Search() {
               selectionRange={selectionRange}
               handleDateChange={handleDateChange}
               isTabletScreen={isTabletScreen}
+              startDate={startDate}
             />
           )}
         </div>

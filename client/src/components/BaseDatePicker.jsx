@@ -6,27 +6,32 @@ export default function BaseDatePicker({
   selectionRange,
   handleDateChange,
   isTabletScreen,
+  startDate,
 }) {
-  //   const { isTabletScreen } = useScreenSize();
   return (
     <>
       {isTabletScreen ? (
         <DateRange
           ranges={[selectionRange]}
           onChange={handleDateChange}
-          rangeColors={["#FD5B61"]}
+          rangeColors={startDate ? ["#FD5B51"] : ["#ccc"]}
           minDate={new Date()}
+          months={isTabletScreen ? 2 : 1}
+          direction="horizontal"
+          retainEndDateOnFirstSelection={true}
+          moveRangeOnFirstSelection={false}
         />
       ) : (
         <DateRangePicker
           ranges={[selectionRange]}
           onChange={handleDateChange}
-          rangeColors={["#FD5B61"]}
+          rangeColors={startDate ? ["#FD5B51"] : ["#ccc"]}
           direction="horizontal"
           showDateDisplay={false}
           minDate={new Date()}
           retainEndDateOnFirstSelection={true}
-          months={isTabletScreen ? 2 : 1}
+          months={!isTabletScreen ? 2 : 1}
+          moveRangeOnFirstSelection={false}
         />
       )}
     </>

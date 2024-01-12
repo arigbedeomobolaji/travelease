@@ -11,18 +11,32 @@ import { useState } from "react";
 import Container from "../components/Container";
 import PreviewManyPhotos from "../components/PreviewManyPhotos";
 import { Typography } from "@material-tailwind/react";
-import { FaStar } from "react-icons/fa";
 import ReservationCard from "../components/ReservationCard";
 import InlineContainer from "../components/InlineContainer";
 import WhatYouEnjoy from "../components/WhatYouEnjoy";
 import Environs from "../components/Environs";
 import DatePicker from "../components/DatePicker";
+import Reviews from "../components/Reviews";
+import StarIcon from "../components/StarIcon";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
   const { serviceId } = useParams();
   const service = services.find((service) => (service.id = serviceId));
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const selectionRange = {
+    startDate,
+    endDate,
+    key: "selection",
+  };
+
+  function handleDateChange(ranges) {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  }
   function handlePhotoPreviewModal() {
     setOpen((cur) => !cur);
   }
@@ -67,9 +81,6 @@ export default function ServicePage() {
           </div>
           {/* Details about service */}
           <div className="flex flex-col gap-2">
-            {/* <h1 className="block md:hidden opacity-1 text-[25px] md:text-[35px] font-extrabold transition-all">
-              {service.serviceCategory}
-            </h1> */}
             <Typography
               variant={`${
                 isVerySmallScreen ? "h6" : isTabletScreen ? "h5" : "h4"
@@ -78,13 +89,7 @@ export default function ServicePage() {
             >
               Comfortable Room in {service.company}, {service.serviceState}
             </Typography>
-
-            <div className="flex h-full items-center">
-              <FaStar />
-              <span className="text-gray-500 font-normal text-lg">
-                {service.serviceRating || "New"}
-              </span>
-            </div>
+            <StarIcon rating={service.serviceRating} />
             <Typography variant="paragraph" className="font-lato text-justify">
               {service.companyDescription}
             </Typography>
@@ -99,11 +104,23 @@ export default function ServicePage() {
             <Divider />
             <WhatYouEnjoy />
             <Divider />
-            <DatePicker />
+            <DatePicker
+              selectionRange={selectionRange}
+              handleDateChange={handleDateChange}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              startDate={startDate}
+            />
           </InlineContainer>
-          <div className="hidden lg:inline-block text-[20px] sticky top-20 lg:w-1/2 xl:w-2/5 align-top pl-5 lg:pl-10">
-            <ReservationCard price={service.servicePrice} />
+          <div className="hidden md:inline-block text-[20px] sticky top-20 md:w-1/2 xl:w-2/5 align-top pl-5 lg:pl-10">
+            <ReservationCard
+              price={service.servicePrice}
+              startDate={startDate}
+              endDate={endDate}
+            />
           </div>
+          <Divider />
+          <Reviews />
         </Container>
       </div>
       {/* Modal codes goes here */}

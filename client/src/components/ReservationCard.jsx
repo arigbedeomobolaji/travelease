@@ -5,6 +5,7 @@ import GuestsFilterMenu from "./GuestsFilterMenu";
 import { AppContext } from "../App";
 import { Button, Typography } from "@material-tailwind/react";
 import { Divider } from "antd";
+import moment from "moment";
 function ChargeDescription({ chargeText, chargePrice, underlined, heading }) {
   return (
     <div className="flex justify-between items-center font-lato pb-2">
@@ -27,7 +28,7 @@ function ChargeDescription({ chargeText, chargePrice, underlined, heading }) {
     </div>
   );
 }
-export default function ReservationCard({ price }) {
+export default function ReservationCard({ price, startDate, endDate }) {
   const [guestPickerOpened, setGuestPickerOpened] = useState(false);
   const [toggleGuest, setToggleGuest] = useState(false);
   const { guests, setGuests } = useContext(AppContext);
@@ -48,14 +49,22 @@ export default function ReservationCard({ price }) {
           Check in
           <input
             readOnly
-            className="border-none outline-none text-[18px] text-red-800 font-semibold font-lato"
+            value={
+              startDate
+                ? moment(startDate).format("DD-MM-yyyy")
+                : "Select a date"
+            }
+            className="checking-date"
           />
         </div>
         <div className="flex flex-col col-span-1 border border-l-none border-solid border-gray-500 p-2 py-1 rounded-tr-md text-[18px]">
           Check out
           <input
             readOnly
-            className="border-none outline-none text-[18px] text-red-800 font-semibold font-lato"
+            value={
+              endDate ? moment(endDate).format("DD-MM-yyyy") : "Select a Date"
+            }
+            className="checking-date"
           />
         </div>
         <div className="flex flex-col col-span-2 border-t-none border-b border-r border-l border-t-none border-solid border-gray-500 p-2 py-1 rounded-b-md text-[18px] relative">

@@ -22,7 +22,6 @@ export default function DynamicIcons({ iconName, className }) {
   const currentIconSet = iconName.substring(0, 2).toLowerCase();
   const Icons = currentIconSet ? iconSets[currentIconSet] : null;
   const Icon = Icons ? Icons[iconName] : null;
-  console.log(Icon);
   return Icon ? (
     <IconContext.Provider value={{ size: "1.5em" }}>
       <Icon className={className} />

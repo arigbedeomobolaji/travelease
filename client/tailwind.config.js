@@ -11,6 +11,9 @@ export default withMT({
         roboto: ["Roboto", "sans-serif"],
         lato: ["Lato", "sans-serif"],
       },
+      screens: {
+        "3xl": "1500px",
+      },
     },
   },
   plugins: [scrollbarHide, tailwindScrollbar],
