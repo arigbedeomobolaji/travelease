@@ -14,12 +14,43 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { Divider } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+
+import { TiInfoLarge } from "react-icons/ti";
+
+function MyInput({ label, value, setValue, type, icon, constraints }) {
+  return (
+    <div>
+      <Input
+        label={label}
+        type={type}
+        onChange={(e) => setValue(e.target.value)}
+        icon={icon}
+        value={value}
+        size="lg"
+      />
+      {constraints && (
+        <Typography
+          variant="small"
+          color="gray"
+          className="mt-2 flex items-center gap-1 font-normal"
+        >
+          <TiInfoLarge /> {constraints}
+        </Typography>
+      )}
+    </div>
+  );
+}
 
 export default function LoginRegister({ open, handleOpenAuthModal, label }) {
   const [showPassword, setShowPassword] = useState(false);
   const [action, setAction] = useState(label);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // useEffect(() => {}, [showPassword]);
+
+  const canContinue = !email && !!password;
 
   function handleAuth() {
     // code for handling Authentication Here
@@ -44,7 +75,7 @@ export default function LoginRegister({ open, handleOpenAuthModal, label }) {
       <Dialog
         size="xs"
         animate={{
-          mount: { scale: 1, y: 50 },
+          mount: { scale: 1, y: 3 },
           unmount: { scale: 0.9, y: -100 },
         }}
         open={open}
@@ -76,32 +107,32 @@ export default function LoginRegister({ open, handleOpenAuthModal, label }) {
             <Typography className="-mb-2" variant="h6">
               Your Email
             </Typography>
-            <Input
+
+            <MyInput
               label="Email"
-              size="lg"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              setValue={setEmail}
+              constraints="Must be a valid Email"
+              icon={<p className="font-extrabold text-black ">@</p>}
             />
             <Typography className="-mb-2" variant="h6">
               Your Password
             </Typography>
-            <div className="relative">
-              <Input
-                type={`${showPassword ? "text" : "password"}`}
-                label="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                size="lg"
-                className="pr-10"
-              />
-              <div className=" w-5 h-5 cursor-pointer absolute top-1/2 -translate-y-1/2 right-3">
-                {showPassword ? (
+            <MyInput
+              label="Password"
+              value={password}
+              type={`${showPassword ? "text" : "password"}`}
+              setValue={setPassword}
+              showPassword={showPassword}
+              icon={
+                showPassword ? (
                   <FaEyeSlash onClick={() => setShowPassword(false)} />
                 ) : (
                   <FaEye onClick={() => setShowPassword(true)} />
-                )}
-              </div>
-            </div>
+                )
+              }
+              constraints="Must be more than three chars"
+            />
 
             <div className="-ml-2.5 -mt-3">
               <Checkbox label="Remember Me" />
@@ -112,6 +143,7 @@ export default function LoginRegister({ open, handleOpenAuthModal, label }) {
               variant="gradient"
               color="red"
               onClick={handleAuth}
+              disabled={!canContinue}
               fullWidth
               className="bg-red-500"
             >
@@ -130,8 +162,21 @@ export default function LoginRegister({ open, handleOpenAuthModal, label }) {
                 {action === "Login" ? "Register" : "Login"}
               </Typography>
             </Typography>
+            <Divider>Or</Divider>
+            <Button
+              variant="outlined"
+              fullWidth
+              className="flex items-center text-left gap-3 mb-10"
+            >
+              <FcGoogle className="text-lg" />
+              <Typography
+                variant="paragraph"
+                className="font-medium capitalize font-lato"
+              >
+                Continue with Google
+              </Typography>
+            </Button>
           </CardFooter>
-          <Divider />
         </Card>
       </Dialog>
     </>
