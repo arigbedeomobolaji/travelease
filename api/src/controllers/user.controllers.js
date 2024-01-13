@@ -1,6 +1,8 @@
 import createHttpError from "http-errors";
 import User from "../models/user.model.js";
 import { sendVerificationCode } from "../services/emailConfig.js";
+import Verification from "../models/verification.model.js";
+
 export const createUser = async (req, res, next) => {
   try {
     const data = req.body;
@@ -12,10 +14,6 @@ export const createUser = async (req, res, next) => {
         .status(201)
         .send({ message: "user successfully saved to the database." });
     }
-
-    // const token = await user.generateAuthToken();
-
-    // res.status(201).send({ user: savedUser, token });
   } catch (error) {
     console.log({ name: error.name, message: error.message }, "here");
     if (error.name.toLowerCase().includes("mongo")) {
@@ -57,7 +55,18 @@ export const currentUser = async (req, res, next) => {
 
 export const verifyUser = async (req, res, next) => {
   try {
-    const code = req.query.code;
-    //
-  } catch (error) {}
+    const { code, email } = req.query;
+    //verify code in the database;
+    const user = await Verification.findCodeAndVerify(code, email);
+    console.log(user);
+    if (user) {
+      const token = await user.generateAuthToken();
+
+      res.status(201).send({ user, token });
+    } else {
+      next(createHttpError.Unauthorized("Please Verify your email."));
+    }
+  } catch (error) {
+    next(error);
+  }
 };
