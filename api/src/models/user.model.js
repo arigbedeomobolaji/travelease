@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import keys from "../config/keys.js";
 import { expiresIn } from "../utils/sharedVar.js";
+import createHttpError from "http-errors";
 
 const saltRounds = Number(keys.SALT_ROUNDS);
 const tokenSecret = keys.TOKEN_SECRET;
@@ -66,11 +67,11 @@ userSchema.methods.generateAuthToken = async function () {
       { expiresIn }
     );
 
-    // save the authtoken to db
+    // save the authToken to db
     user.tokens = user.tokens.concat({ token });
     const savedToken = await user.save();
     if (!savedToken) {
-      throw { error: { message: "error occurred try again" } };
+      throw createHttpError.InternalServerError("Please Authenticate");
     }
     return token;
   } catch (error) {
@@ -80,14 +81,14 @@ userSchema.methods.generateAuthToken = async function () {
 
 // FindByCredentials - find user by email and password
 userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne(email);
+  const user = await User.findOne({ email });
   if (!user) {
-    throw "Please Authenticate.";
+    throw createHttpError.Unauthorized("Please Authenticate");
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    throw "Please authenticate.";
+    throw createHttpError.Unauthorized("Please Authenticate");
   }
   return user;
 };
@@ -100,7 +101,6 @@ userSchema.statics.findOrCreate = async (email) => {
     if (user) {
       return user;
     }
-
     // Create a new user in the DB.
     user = await User.create({ email });
     return user;
