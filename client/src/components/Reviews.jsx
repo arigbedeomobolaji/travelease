@@ -41,6 +41,7 @@ export default function Reviews() {
     <HorizontalScroll
       title="Reviews"
       description="Average rating will appear after 3 reviews"
+      top="-bottom-5"
     >
       <Review />
       <Review />

@@ -3,7 +3,12 @@
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-export default function HorizontalScroll({ title, description, children }) {
+export default function HorizontalScroll({
+  title,
+  description,
+  children,
+  top,
+}) {
   const horizontalScrollRef = useRef(null);
 
   //   Add scroll to carousel
@@ -19,7 +24,11 @@ export default function HorizontalScroll({ title, description, children }) {
     <div className="relative">
       <h1 className="small-heading">{title}</h1>
       {description && <p className="small-paragraph">{description}</p>}
-      <div className="flex justify-between items-center bg-none absolute left-0 right-0 top-1/2 z-20">
+      <div
+        className={`flex justify-between items-center bg-none absolute left-0 right-0 ${
+          top ? top : "top-1/2"
+        } z-20`}
+      >
         <button onClick={() => handleScrollClick("right")} className="btn-icon">
           <FaChevronLeft />
         </button>

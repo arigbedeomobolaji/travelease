@@ -18,15 +18,18 @@ import Environs from "../components/Environs";
 import DatePicker from "../components/DatePicker";
 import Reviews from "../components/Reviews";
 import StarIcon from "../components/StarIcon";
+import ThingsToKnow from "../components/ThignsToKnow";
 
 export default function ServicePage() {
   const [open, setOpen] = useState(false);
   const { serviceId } = useParams();
-  const service = services.find((service) => (service.id = serviceId));
+  const service = services.find(
+    (service) => service.serviceId.toString() === serviceId
+  );
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
-
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
   const selectionRange = {
     startDate,
     endDate,
@@ -42,7 +45,7 @@ export default function ServicePage() {
   }
   return (
     <>
-      <div className="pt-7 font-roboto">
+      <div className="pt-7 font-roboto scroll-smooth">
         <Container>
           {/* Category / Like and Share */}
           <div className="flex justify-between items-center gap-5">
@@ -101,8 +104,10 @@ export default function ServicePage() {
             <p className="leading-7">{service.companyDescription}</p>
             <Divider />
             <Environs />
+
             <Divider />
             <WhatYouEnjoy />
+
             <Divider />
             <DatePicker
               selectionRange={selectionRange}
@@ -112,15 +117,27 @@ export default function ServicePage() {
               startDate={startDate}
             />
           </InlineContainer>
-          <div className="hidden md:inline-block text-[20px] sticky top-20 md:w-1/2 xl:w-2/5 align-top pl-5 lg:pl-10">
+          <div
+            className={`hidden md:inline-block text-[20px] 
+            top-20 md:w-1/2 xl:w-2/5 align-top pl-5 lg:pl-10 ${"sticky top-20"} scroll-smooth`}
+            style={{
+              zIndex: -1,
+            }}
+          >
             <ReservationCard
               price={service.servicePrice}
               startDate={startDate}
               endDate={endDate}
             />
           </div>
-          <Divider />
-          <Reviews />
+        </Container>
+        <Divider />
+        <Container>
+          <div className="bg-white">
+            <Reviews />
+            <Divider />
+            <ThingsToKnow />
+          </div>
         </Container>
       </div>
       {/* Modal codes goes here */}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import DynamicIcons from "./DynamicIcons";
 
 const offers = [
@@ -43,7 +44,7 @@ export default function WhatYouEnjoy() {
               iconName={Icon}
               className="text-gray-800 text-[25px]"
             />
-            <p className="capitalize text-gray-700">{label}</p>
+            <p className="capitalize text-gray-700"> {label}</p>
           </div>
         ))}
       </div>
