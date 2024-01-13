@@ -26,6 +26,4 @@ dist-ssr
 *.sln
 *.sw?
 .env
-.env
 .env.local
-.env
