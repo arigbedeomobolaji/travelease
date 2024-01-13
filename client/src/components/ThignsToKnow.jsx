@@ -34,7 +34,6 @@ const information = [
 
 function Info({ label, data }) {
   const subData = data.slice(0, 3);
-  console.log(subData);
   return (
     <div className="max-w-[280px]">
       <h2 className="text-[20px] text-black font-bold font-lato">{label}</h2>
@@ -55,7 +54,6 @@ function Info({ label, data }) {
 }
 
 export default function ThingsToKnow() {
-  console.log(information);
   return (
     <div className="">
       <h1 className="small-heading">Things to Know</h1>

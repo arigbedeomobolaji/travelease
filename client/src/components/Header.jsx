@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import Search from "./search/Search";
 import { useMediaQuery } from "@react-hook/media-query";
-import LoginRegister from "./modal/LoginProcess/LoginRegister";
 import Container from "./Container";
+import AuthModal from "./modal/AuthProcess/AuthModal";
 
 const authItems = [
   {
@@ -128,7 +128,7 @@ export default function Header() {
         </Container>
       </div>
       {/* Modal codes comes here */}
-      <LoginRegister
+      <AuthModal
         open={open}
         handleOpenAuthModal={handleOpenAuthModal}
         label={label}
