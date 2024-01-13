@@ -8,6 +8,7 @@ import expressAsyncHandler from "express-async-handler";
 // My imports
 import { connectDatabase } from "./utils/db.js";
 import keys from "./config/keys.js";
+import userRouter from "./routes.js/user.routes.js";
 
 const app = express();
 
@@ -27,10 +28,13 @@ const MONGO_URL = keys.MONGO_URL;
 
 app.get(
   "/",
-  expressAsyncHandler(async (req, res, next) => {
+  expressAsyncHandler(async (req, res) => {
     res.status(200).send({ message: `connected on port ${keys.PORT}` });
   })
 );
+
+// custom routes
+app.use("/api/v1/users", userRouter);
 
 async function startServer(port) {
   try {
