@@ -6,7 +6,7 @@
 
 # Creat User Route and Controller
 
-    1. User Creation
-    2.  User Verification
-    3. User Authentication
+    1. User Creation and Login
+    2. User Authentication
+    3.  User Verification
     4. Connect to front end

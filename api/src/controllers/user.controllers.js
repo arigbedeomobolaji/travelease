@@ -1,12 +1,21 @@
 import createHttpError from "http-errors";
 import User from "../models/user.model.js";
+import { sendVerificationCode } from "../services/emailConfig.js";
 export const createUser = async (req, res, next) => {
   try {
     const data = req.body;
     const user = new User(data);
     const savedUser = await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user: savedUser, token });
+    if (savedUser) {
+      await sendVerificationCode(savedUser.email);
+      res
+        .status(201)
+        .send({ message: "user successfully saved to the database." });
+    }
+
+    // const token = await user.generateAuthToken();
+
+    // res.status(201).send({ user: savedUser, token });
   } catch (error) {
     console.log({ name: error.name, message: error.message }, "here");
     if (error.name.toLowerCase().includes("mongo")) {
@@ -31,5 +40,17 @@ export const loginUser = async (req, res, next) => {
     }
   } catch (error) {
     next(createHttpError(error));
+  }
+};
+
+export const currentUser = async (req, res, next) => {
+  try {
+    if (req.user) {
+      res.status(200).json({ user: req.user });
+    } else {
+      throw createHttpError.Unauthorized("Please Authenticate.");
+    }
+  } catch (error) {
+    next(createHttpError.Unauthorized("Please Authenticate"));
   }
 };
