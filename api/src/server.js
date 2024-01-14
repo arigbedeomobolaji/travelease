@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 // My imports
 import { connectDatabase } from "./utils/db.js";
+import "./utils/worker.js";
 import keys from "./config/keys.js";
 import userRouter from "./routes.js/user.routes.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
