@@ -6,11 +6,15 @@ import OtpInput from "../../Otp";
 import { FaChevronLeft } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { resendCode, verifyUser } from "../../../queries/user.queries";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { errorFormat } from "../../../utils/errorFormat";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUserAndToken } from "../../../redux/slices/userSlice";
-import AppContext from "antd/es/app/context";
+import {
+  selectUser,
+  setUser,
+  setUserAndToken,
+} from "../../../redux/slices/userSlice";
+import { AppContext } from "../../../App";
 
 export default function VerifyEmail({ setShowVerify }) {
   const { handleOpenAuthModal } = useContext(AppContext);
@@ -32,6 +36,7 @@ export default function VerifyEmail({ setShowVerify }) {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
+  const [verified, setVerified] = useState(false);
   const resendVerificationCode = useQuery({
     queryKey: ["resendCode", user?.email],
     meta: {
@@ -44,34 +49,44 @@ export default function VerifyEmail({ setShowVerify }) {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
-
   const dispatch = useDispatch();
 
+  // Send message for user verification success
   useEffect(() => {
     if (verifyEmail?.data) {
       dispatch(setUserAndToken(verifyEmail.data.data));
+      toast.success("You're verified", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setVerified(true);
     }
   }, [dispatch, handleOpenAuthModal, verifyEmail.data]);
+
+  // Send verification success message
+  useEffect(() => {
+    if (resendVerificationCode.isSuccess) {
+      toast.success("OTP sent", {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+  }, [resendVerificationCode.isSuccess]);
+
+  // check if there's an error verifying user
   useEffect(() => {
     if (verifyEmail?.isError) {
       const { message } = errorFormat(verifyEmail.error);
-      toast(message, {
+      toast.error(message, {
         position: "top-right",
         theme: "colored",
       });
     }
-  }, [verifyEmail.error, verifyEmail?.isError]);
+  }, [verifyEmail.error, verifyEmail.isError]);
 
   useEffect(() => {
     setCode(otp.join(""));
   }, [otp]);
-
-  function handleEmailVerification() {
-    // code goes here
-    verifyEmail.refetch();
-    console.log(verifyEmail.data);
-    handleOpenAuthModal();
-  }
   return (
     <div>
       <p
@@ -81,7 +96,6 @@ export default function VerifyEmail({ setShowVerify }) {
         <FaChevronLeft className=" text-[20px] text-gray-800 shadow-lg" />{" "}
         <span className="text-xs">Go back</span>
       </p>
-
       <Typography className="text-gray-900 font-normal text-2xl text-center">
         Email Verification
       </Typography>
@@ -97,11 +111,11 @@ export default function VerifyEmail({ setShowVerify }) {
         <OtpInput otp={otp} setOtp={setOtp} inputRefs={inputRefs} />
         <Button
           className="w-72 py-4"
-          color="red"
+          color={verified ? "green" : "red"}
           disabled={code.length !== 6}
-          onClick={handleEmailVerification}
+          onClick={() => verifyEmail.refetch()}
         >
-          Let&apos;s check
+          {verified ? "Verified." : "Let's check"}
         </Button>
         <p className="py-5 text-gray-600 font-normal font-lato ">
           Didn&apos;t receive an OTP?{" "}
@@ -115,7 +129,16 @@ export default function VerifyEmail({ setShowVerify }) {
             Resend
           </span>
         </p>
+        <Button
+          color="green"
+          fullWidth
+          onClick={() => dispatch(setUser({ user: null }))}
+          disabled={verified}
+        >
+          Use another Email
+        </Button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -66,7 +66,6 @@ export default function LoginRegister({
       setTimeout(() => {
         toast.error(errorFormat(error).message, {
           position: "top-center",
-          theme: "colored",
         });
       }, 1);
     },

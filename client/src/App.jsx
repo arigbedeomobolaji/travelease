@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import { createContext, useState } from "react";
 import ServicePage from "./pages/ServicePage";
 import "react-toastify/dist/ReactToastify.css";
+import Service from "./pages/Service";
 export const AppContext = createContext();
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/services/:serviceId" element={<ServicePage />} />
-            <Route path="/login" element={<p>Login</p>} />
+            <Route path="/service" element={<Service />} />
           </Route>
         </Routes>
       </BrowserRouter>

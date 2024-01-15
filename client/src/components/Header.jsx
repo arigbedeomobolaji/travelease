@@ -94,12 +94,7 @@ export default function Header() {
     }
   }, [dispatch, logout.error, logout.isError]);
 
-  // const [open, setOpen] = useState(false);
-  // function handleOpenAuthModal() {
-  //   setOpen((cur) => !cur);
-  // }
   const { handleOpenAuthModal, openAuthModal } = useContext(AppContext);
-  console.log(openAuthModal);
   return (
     <>
       <div className="shadow-md shadow-red-50 drop-shadow-sm font-lato py-5 relative z-20">
@@ -119,7 +114,10 @@ export default function Header() {
             </div>
             <div className="flex gap-3 h-full items-center">
               {!isVerySmallScreen && (
-                <Link className="text-red-500 text-xs font-medium md:font-normal md:text-md font-lato">
+                <Link
+                  to="/service"
+                  className="text-red-500 text-xs font-medium md:font-normal md:text-md font-lato"
+                >
                   Own a Service?
                 </Link>
               )}

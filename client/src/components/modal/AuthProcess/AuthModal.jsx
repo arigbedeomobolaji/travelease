@@ -5,11 +5,14 @@ import { useContext, useState } from "react";
 import VerifyEmail from "./VerifyEmail";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { AppContext } from "../../../App";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/slices/userSlice";
 
 export default function AuthModal({ label }) {
   const { isVerySmallScreen } = useScreenSize();
   const [showVerify, setShowVerify] = useState(false);
   const { openAuthModal, handleOpenAuthModal } = useContext(AppContext);
+  const user = useSelector(selectUser);
   return (
     <>
       <Dialog
@@ -22,7 +25,7 @@ export default function AuthModal({ label }) {
         handler={handleOpenAuthModal}
         className="bg-transparent shadow-md font-roboto"
       >
-        <Card className="mx-auto w-full max-w-[28rem]  pt-7 py-5">
+        <Card className="mx-auto w-full max-w-[36rem]  pt-7 py-5">
           <CardBody className="flex flex-col gap-4">
             <div className="w-full flex items-center justify-center">
               <img
@@ -35,7 +38,7 @@ export default function AuthModal({ label }) {
               />
             </div>
 
-            {showVerify ? (
+            {showVerify || (user?.email && label === "Register") ? (
               <VerifyEmail
                 setShowVerify={setShowVerify}
                 handleOpenAuthModal={handleOpenAuthModal}
@@ -50,7 +53,6 @@ export default function AuthModal({ label }) {
           </CardBody>
         </Card>
       </Dialog>
-      {/* <ToastContainer  /> */}
     </>
   );
 }
