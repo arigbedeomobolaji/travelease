@@ -13,15 +13,23 @@ import {
 import { thunk } from "redux-thunk";
 import userReducer from "./slices/userSlice";
 import counterReducer from "./counterSlice";
-
 const persistConfig = {
   key: "root",
   storage,
 };
+const counterPersistConfig = {
+  key: "counter",
+  storage,
+};
+
+const userPersistConfig = {
+  key: "user",
+  storage,
+};
 
 const rootReducer = combineReducers({
-  userReducer: userReducer,
-  counterReducer: counterReducer,
+  user: persistReducer(userPersistConfig, userReducer),
+  counter: persistReducer(counterPersistConfig, counterReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

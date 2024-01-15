@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import Search from "./search/Search";
 import { useMediaQuery } from "@react-hook/media-query";
 import Container from "./Container";
 import AuthModal from "./modal/AuthProcess/AuthModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteUserAndToken,
+  selectToken,
+  selectUser,
+} from "../redux/slices/userSlice";
+import { useQuery } from "@tanstack/react-query";
+import { logoutUser } from "../queries/user.queries";
+import { toast } from "react-toastify";
+import { errorFormat } from "../utils/errorFormat";
 
 const authItems = [
   {
@@ -46,6 +56,42 @@ export default function Header() {
   const isVerySmallScreen = useMediaQuery("(max-width: 450px)");
   const [toggleMenu, setToggleMenu] = useState(false);
   const [label, setLabel] = useState("");
+  const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
+  const logout = useQuery({
+    queryKey: ["logout", user?._id, token],
+    queryFn: logoutUser,
+    retry: false,
+    enabled: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (logout?.data) {
+      dispatch(deleteUserAndToken());
+    }
+  }, [dispatch, logout, logout.data]);
+
+  useEffect(() => {
+    if (logout?.isError) {
+      // if (errorFormat(logout.error) === "");
+      const { status, message } = errorFormat(logout.error);
+      if (status === 401) {
+        dispatch(deleteUserAndToken());
+        toast(message, {
+          position: "top-right",
+        });
+      } else {
+        // dispatch(deleteUserAndToken());
+        toast(message, {
+          position: "top-right",
+        });
+      }
+    }
+  }, [dispatch, logout.error, logout.isError]);
 
   const [open, setOpen] = useState(false);
   function handleOpenAuthModal() {
@@ -95,15 +141,24 @@ export default function Header() {
                 {toggleMenu && (
                   <div className="absolute top-20 right-0 shadow-md shadow-red-50 z-50 bg-white">
                     <div key="items" mode="vertical" className="w-[200px]">
-                      {authItems.map((item) => (
-                        <MenuItem
-                          key={item.route}
-                          route={item.route}
-                          label={item.label}
-                          handleOpenAuthModal={handleOpenAuthModal}
-                          setLabel={setLabel}
-                        />
-                      ))}
+                      {user?._id ? (
+                        <div
+                          className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50"
+                          onClick={() => logout.refetch()}
+                        >
+                          Log out
+                        </div>
+                      ) : (
+                        authItems.map((item) => (
+                          <MenuItem
+                            key={item.route}
+                            route={item.route}
+                            label={item.label}
+                            handleOpenAuthModal={handleOpenAuthModal}
+                            setLabel={setLabel}
+                          />
+                        ))
+                      )}
                       {isVerySmallScreen && (
                         <MenuItem
                           label="Own a Service"

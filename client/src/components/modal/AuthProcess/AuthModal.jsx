@@ -34,9 +34,13 @@ export default function AuthModal({ open, handleOpenAuthModal, label }) {
             </div>
 
             {showVerify ? (
-              <VerifyEmail />
+              <VerifyEmail setShowVerify={setShowVerify} />
             ) : (
-              <LoginRegister label={label} setShowVerify={setShowVerify} />
+              <LoginRegister
+                label={label}
+                setShowVerify={setShowVerify}
+                handleOpenAuthModal={handleOpenAuthModal}
+              />
             )}
           </CardBody>
         </Card>

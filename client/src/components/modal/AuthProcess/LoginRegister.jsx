@@ -10,9 +10,17 @@ import {
 import { Divider } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
+import validator from "validator";
 
 import { TiInfoLarge } from "react-icons/ti";
+import { authMutation } from "../../../queries/user.mutation";
+import { errorFormat } from "../../../utils/errorFormat";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { setUserAndToken } from "../../../redux/slices/userSlice";
 
 function MyInput({ label, value, setValue, type, icon, constraints }) {
   return (
@@ -38,20 +46,58 @@ function MyInput({ label, value, setValue, type, icon, constraints }) {
   );
 }
 
-export default function LoginRegister({ label, setShowVerify }) {
+export default function LoginRegister({
+  label,
+  setShowVerify,
+  handleOpenAuthModal,
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const [action, setAction] = useState(label);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  // useEffect(() => {}, [showPassword]);
+  const mutation = useMutation({
+    mutationFn: authMutation,
+    onError(error) {
+      console.log(error);
+      setTimeout(() => {
+        toast.error(errorFormat(error), {
+          position: "top-right",
+          theme: "colored",
+        });
+      }, 1);
+    },
+    onSuccess(data) {
+      // const {token, user} = data.data;
+      // save user and token to redux store here
+      if (data.data.token) {
+        // Save token to redux store because we will need it later in the future.
+        // close modal
+        dispatch(setUserAndToken(data.data));
 
-  const canContinue = !!email && !!password;
+        handleOpenAuthModal();
+      } else {
+        // preceed to verification page
+
+        setShowVerify(true);
+      }
+    },
+  });
+
+  console.log(action);
+
+  let canContinue = validator.isEmail(email) && !!password;
 
   function handleAuth() {
     // code for handling Authentication Here
-
-    setShowVerify(true);
+    console.log(action);
+    if (action === "Register") {
+      mutation.mutate({ email, password });
+    } else {
+      console.log(action, "here");
+      mutation.mutate({ email, password, route: "/login" });
+    }
   }
 
   useEffect(() => {
@@ -65,6 +111,10 @@ export default function LoginRegister({ label, setShowVerify }) {
       }
       return "Login";
     });
+  }
+
+  if (mutation.isPending) {
+    canContinue = false;
   }
 
   return (
@@ -152,6 +202,7 @@ export default function LoginRegister({ label, setShowVerify }) {
             Continue with Google
           </Typography>
         </Button>
+        <ToastContainer autoClose={8000} />
       </CardFooter>
     </>
   );
