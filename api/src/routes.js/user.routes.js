@@ -3,6 +3,8 @@ import {
   createUser,
   currentUser,
   loginUser,
+  logoutUser,
+  resendVerificationCode,
   verifyUser,
 } from "../controllers/user.controllers.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
@@ -13,5 +15,7 @@ userRouter.post("", createUser);
 userRouter.post("/login", loginUser);
 userRouter.get("", authMiddleware, currentUser);
 userRouter.get("/verify", verifyUser);
+userRouter.get("/logout", authMiddleware, logoutUser);
+userRouter.get("/resend-code", resendVerificationCode);
 
 export default userRouter;

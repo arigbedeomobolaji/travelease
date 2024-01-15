@@ -20,7 +20,9 @@ import { authMutation } from "../../../queries/user.mutation";
 import { errorFormat } from "../../../utils/errorFormat";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { setUserAndToken } from "../../../redux/slices/userSlice";
+import { setUser, setUserAndToken } from "../../../redux/slices/userSlice";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function MyInput({ label, value, setValue, type, icon, constraints }) {
   return (
@@ -62,8 +64,8 @@ export default function LoginRegister({
     onError(error) {
       console.log(error);
       setTimeout(() => {
-        toast.error(errorFormat(error), {
-          position: "top-right",
+        toast.error(errorFormat(error).message, {
+          position: "top-center",
           theme: "colored",
         });
       }, 1);
@@ -75,17 +77,14 @@ export default function LoginRegister({
         // Save token to redux store because we will need it later in the future.
         // close modal
         dispatch(setUserAndToken(data.data));
-
         handleOpenAuthModal();
       } else {
-        // preceed to verification page
-
+        // proceed to verification page
+        dispatch(setUser(data.data));
         setShowVerify(true);
       }
     },
   });
-
-  console.log(action);
 
   let canContinue = validator.isEmail(email) && !!password;
 

@@ -2,6 +2,8 @@ import { Schema, model } from "mongoose";
 import validator from "validator";
 import User from "./user.model.js";
 
+const expiresIn = 1000 * 60 * 30;
+
 const verificationSchema = new Schema({
   code: { type: Number, require: true, index: true },
   email: {
@@ -11,9 +13,25 @@ const verificationSchema = new Schema({
   },
   expiresAt: {
     type: Date,
-    default: Date.now() + 1000 * 60 * 30,
+    default: Date.now() + expiresIn,
   },
 });
+
+verificationSchema.statics.updateOrCreate = async function (code, userEmail) {
+  let verification = await Verification.findOne({ email: userEmail });
+  if (verification) {
+    verification.code = code;
+    verification.expiresAt = Date.now() + expiresIn;
+    const newVerification = await verification.save();
+    return newVerification;
+  }
+  verification = new Verification({
+    code,
+    email: userEmail,
+  });
+  const newVerification = await verification.save();
+  return newVerification;
+};
 
 verificationSchema.statics.findCodeAndVerify = async function (
   code,
@@ -21,6 +39,7 @@ verificationSchema.statics.findCodeAndVerify = async function (
 ) {
   // find code in db
   const codeExist = await Verification.findOne({ code });
+  console.log(codeExist);
   if (codeExist) {
     // checks if user owns the code and it hasn't expired
     const canContinue =
@@ -29,6 +48,8 @@ verificationSchema.statics.findCodeAndVerify = async function (
       throw "Please regenerate code or authenticate";
     }
     const user = await User.findOne({ email: codeExist.email });
+    user.isVerified = true;
+    await user.save();
     await Verification.deleteOne({ code });
     return user;
   }

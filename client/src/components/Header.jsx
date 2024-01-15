@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import Search from "./search/Search";
@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { logoutUser } from "../queries/user.queries";
 import { toast } from "react-toastify";
 import { errorFormat } from "../utils/errorFormat";
+import { AppContext } from "../App";
 
 const authItems = [
   {
@@ -93,11 +94,12 @@ export default function Header() {
     }
   }, [dispatch, logout.error, logout.isError]);
 
-  const [open, setOpen] = useState(false);
-  function handleOpenAuthModal() {
-    setOpen((cur) => !cur);
-  }
-
+  // const [open, setOpen] = useState(false);
+  // function handleOpenAuthModal() {
+  //   setOpen((cur) => !cur);
+  // }
+  const { handleOpenAuthModal, openAuthModal } = useContext(AppContext);
+  console.log(openAuthModal);
   return (
     <>
       <div className="shadow-md shadow-red-50 drop-shadow-sm font-lato py-5 relative z-20">
@@ -141,7 +143,7 @@ export default function Header() {
                 {toggleMenu && (
                   <div className="absolute top-20 right-0 shadow-md shadow-red-50 z-50 bg-white">
                     <div key="items" mode="vertical" className="w-[200px]">
-                      {user?._id ? (
+                      {user?._id && token ? (
                         <div
                           className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50"
                           onClick={() => logout.refetch()}
@@ -183,11 +185,7 @@ export default function Header() {
         </Container>
       </div>
       {/* Modal codes comes here */}
-      <AuthModal
-        open={open}
-        handleOpenAuthModal={handleOpenAuthModal}
-        label={label}
-      />
+      <AuthModal label={label} open={openAuthModal} />
     </>
   );
 }

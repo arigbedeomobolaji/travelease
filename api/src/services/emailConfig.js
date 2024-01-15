@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import AWS from "aws-sdk";
 import keys from "../config/keys.js";
 import Verification from "../models/verification.model.js";
+import { generateCode } from "../utils/shared.js";
 
 AWS.config.update({
   accessKeyId: keys.AMAZON_SES_ACCESS_KEY,
@@ -14,19 +15,11 @@ const transporter = nodemailer.createTransport({
   SES: new AWS.SES({ apiVersion: "2010-12-01" }),
 });
 
-// function to generate random six characters
-function generateCode() {
-  return Math.floor(100000 + Math.random() * 900000);
-}
-
 export async function sendVerificationCode(userEmail) {
   const code = generateCode();
-  const verificationCode = new Verification({
-    code,
-    email: userEmail,
-  });
   try {
-    await verificationCode.save();
+    const newVerification = await Verification.updateOrCreate(code, userEmail);
+    console.log(newVerification, " new", code, userEmail);
   } catch (error) {
     console.log(
       "Error saving verification code to the database:",

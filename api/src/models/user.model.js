@@ -22,11 +22,15 @@ const userSchema = new Schema(
       unique: true,
       index: true,
       lowercase: true,
-      validate: [validation, "Must provide an Email"],
+      validate: [validation, "Valid Email required."],
     },
     password: {
       type: String,
       required: true,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
     tokens: [
       {

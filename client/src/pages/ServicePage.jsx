@@ -21,7 +21,7 @@ import StarIcon from "../components/StarIcon";
 import ThingsToKnow from "../components/ThignsToKnow";
 
 export default function ServicePage() {
-  const [open, setOpen] = useState(false);
+  const [openPreviewModal, setOpenPreviewModal] = useState(false);
   const { serviceId } = useParams();
   const service = services.find(
     (service) => service.serviceId.toString() === serviceId
@@ -41,7 +41,7 @@ export default function ServicePage() {
     setEndDate(ranges.selection.endDate);
   }
   function handlePhotoPreviewModal() {
-    setOpen((cur) => !cur);
+    setOpenPreviewModal((cur) => !cur);
   }
   return (
     <>
@@ -142,7 +142,7 @@ export default function ServicePage() {
       </div>
       {/* Modal codes goes here */}
       <PhotosPreviewModal
-        open={open}
+        openPreviewModal={openPreviewModal}
         handlePhotoPreviewModal={handlePhotoPreviewModal}
         images={service.serviceImages}
       />

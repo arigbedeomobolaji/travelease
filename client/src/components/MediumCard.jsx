@@ -5,6 +5,8 @@ import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import SwiperCard from "./SwiperCard";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/slices/userSlice";
 
 export default function MediumCard({
   serviceLocation,
@@ -16,8 +18,17 @@ export default function MediumCard({
 }) {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
   function goToServicePage() {
     navigate(`/services/${serviceId}`);
+  }
+
+  function handleLikes() {
+    if (!user) {
+      // open authModal
+      return;
+    }
+    setLiked((cur) => !cur);
   }
   return (
     <div className="flex flex-col max-w-[6=1000px] md:max-w-[500px] xl:max-w-[600px] font-roboto shadow-md shadow-red-50">
@@ -31,17 +42,14 @@ export default function MediumCard({
             Book
             <MdLogin className="text-20px" />
           </div>
-          <div className="w-10 h-10 p-2 bg-red-50 rounded-full flex items-center hover:scale-105">
+          <div
+            className="w-10 h-10 p-2 bg-red-50 rounded-full flex items-center hover:scale-105"
+            onClick={handleLikes}
+          >
             {liked ? (
-              <MdFavorite
-                className="text-red-500 text-[30px] cursor-pointer"
-                onClick={() => setLiked(!liked)}
-              />
+              <MdFavorite className="text-red-500 text-[30px] cursor-pointer" />
             ) : (
-              <MdFavoriteBorder
-                className="text-red-500 outline-red-50 stroke-red-50 text-[30px] cursor-pointer"
-                onClick={() => setLiked(!liked)}
-              />
+              <MdFavoriteBorder className="text-red-500 outline-red-50 stroke-red-50 text-[30px] cursor-pointer" />
             )}
           </div>
         </div>

@@ -16,10 +16,14 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    setUser: (state, action) => {
+      state.user = action.payload.user;
+    },
   },
 });
 
-export const { setUserAndToken, deleteUserAndToken } = userSlice.actions;
+export const { setUserAndToken, deleteUserAndToken, setUser } =
+  userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 export const selectToken = (state) => state.user.token;

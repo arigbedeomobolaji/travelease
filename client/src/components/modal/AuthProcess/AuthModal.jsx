@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { Card, CardBody, Dialog } from "@material-tailwind/react";
 import LoginRegister from "./LoginRegister";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import VerifyEmail from "./VerifyEmail";
 import useScreenSize from "../../../hooks/useScreenSize";
+import { AppContext } from "../../../App";
 
-export default function AuthModal({ open, handleOpenAuthModal, label }) {
+export default function AuthModal({ label }) {
   const { isVerySmallScreen } = useScreenSize();
   const [showVerify, setShowVerify] = useState(false);
+  const { openAuthModal, handleOpenAuthModal } = useContext(AppContext);
   return (
     <>
       <Dialog
@@ -16,7 +18,7 @@ export default function AuthModal({ open, handleOpenAuthModal, label }) {
           mount: { scale: 1, y: 3 },
           unmount: { scale: 0.9, y: -100 },
         }}
-        open={open}
+        open={openAuthModal}
         handler={handleOpenAuthModal}
         className="bg-transparent shadow-md font-roboto"
       >
@@ -34,7 +36,10 @@ export default function AuthModal({ open, handleOpenAuthModal, label }) {
             </div>
 
             {showVerify ? (
-              <VerifyEmail setShowVerify={setShowVerify} />
+              <VerifyEmail
+                setShowVerify={setShowVerify}
+                handleOpenAuthModal={handleOpenAuthModal}
+              />
             ) : (
               <LoginRegister
                 label={label}
@@ -45,6 +50,7 @@ export default function AuthModal({ open, handleOpenAuthModal, label }) {
           </CardBody>
         </Card>
       </Dialog>
+      {/* <ToastContainer  /> */}
     </>
   );
 }

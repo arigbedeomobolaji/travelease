@@ -8,7 +8,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import ImagePreview from "../ImagePreview";
 
 export default function PhotosPreviewModal({
-  open,
+  openPreviewModal,
   handlePhotoPreviewModal,
   images,
 }) {
@@ -21,7 +21,7 @@ export default function PhotosPreviewModal({
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
         }}
-        open={open}
+        open={openPreviewModal}
         handler={handlePhotoPreviewModal}
         className="bg-transparent shadow-md font-roboto"
       >

@@ -5,22 +5,41 @@ import Verification from "../models/verification.model.js";
 
 export const createUser = async (req, res, next) => {
   try {
-    const data = req.body;
+    var data = req.body;
     const user = new User(data);
     const savedUser = await user.save();
     if (savedUser) {
       await sendVerificationCode(savedUser.email);
-      res
-        .status(201)
-        .send({ message: "user successfully saved to the database." });
+      res.status(201).json({
+        message: "user successfully saved to the database.",
+        user: savedUser,
+      });
     }
   } catch (error) {
-    console.log({ name: error.name, message: error.message }, "here");
     if (error.name.toLowerCase().includes("mongo")) {
+      console.log("It got here.");
       if (error.message.toLowerCase().includes("dup")) {
-        next(createHttpError.Unauthorized("Please select another email."));
+        next(createHttpError.Unauthorized("email " + data.email + " exist."));
       }
     }
+
+    if (error.name.includes("ValidationError")) {
+      next(createHttpError.BadRequest(error.message));
+    }
+    next(error);
+  }
+};
+
+export const resendVerificationCode = async (req, res, next) => {
+  try {
+    const email = req.query.email;
+    // const user = await User.findOne({ email });
+    const verificationSent = await sendVerificationCode(email);
+    console.log(verificationSent, " to ", email);
+    res.status(201).json({
+      message: "Code sent, Please check your email.",
+    });
+  } catch (error) {
     next(error);
   }
 };
@@ -65,6 +84,23 @@ export const verifyUser = async (req, res, next) => {
       res.status(201).send({ user, token });
     } else {
       next(createHttpError.Unauthorized("Please Verify your email."));
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutUser = async (req, res, next) => {
+  try {
+    if (req.user) {
+      const currentToken = req.headers.authorization.replace("Bearer ", "");
+      req.user.tokens = req.user.tokens.filter(
+        (token) => token.token !== currentToken
+      );
+      await req.user.save();
+      res.status(200).json({ message: "User logged Out" });
+    } else {
+      res.status(200).json({ message: "Please re login" });
     }
   } catch (error) {
     next(error);

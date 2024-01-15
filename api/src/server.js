@@ -9,6 +9,7 @@ import { connectDatabase } from "./utils/db.js";
 import "./utils/worker.js";
 import keys from "./config/keys.js";
 import userRouter from "./routes.js/user.routes.js";
+// import createHttpError from "http-errors";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
 const app = express();
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5000",
+    origin: "http://localhost:5173",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -46,6 +47,10 @@ app.use("/api/v1/users", userRouter);
 
 // Error Middleware
 app.use(errorMiddleware);
+
+// app.use((error, req, res) => {
+//   console.log("Here", error);
+// });
 
 // start the server and database
 async function startServer(port) {
