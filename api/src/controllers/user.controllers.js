@@ -17,7 +17,6 @@ export const createUser = async (req, res, next) => {
     }
   } catch (error) {
     if (error.name.toLowerCase().includes("mongo")) {
-      console.log("It got here.");
       if (error.message.toLowerCase().includes("dup")) {
         next(createHttpError.Unauthorized("email " + data.email + " exist."));
       }
@@ -48,7 +47,6 @@ export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findByCredentials(email, password);
-    console.log(user);
     if (user) {
       const token = await user.generateAuthToken();
       if (token) {
@@ -77,7 +75,6 @@ export const verifyUser = async (req, res, next) => {
     const { code, email } = req.query;
     //verify code in the database;
     const user = await Verification.findCodeAndVerify(code, email);
-    console.log(user);
     if (user) {
       const token = await user.generateAuthToken();
 

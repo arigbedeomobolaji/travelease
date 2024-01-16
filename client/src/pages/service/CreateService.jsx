@@ -2,19 +2,16 @@
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { updateRegistrationMutation } from "../../queries/user.mutation";
+import { serviceMutation } from "../../queries/user.mutation";
 import { errorFormat } from "../../../../api/src/utils/shared";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppContext } from "../../App";
-import {
-  selectToken,
-  selectUser,
-  setUserAndToken,
-} from "../../redux/slices/userSlice";
+import { selectToken, selectUser } from "../../redux/slices/userSlice";
 import { TiInfoLarge } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import ImageCompression from "../../components/images/ImageCompressor";
+import { getPresignedUrl, uploadToS3 } from "../../utils/upload";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -29,10 +26,6 @@ function InputIcon({ value, setValue, label, icon, readOnly }) {
       />
     </div>
   );
-}
-
-function handleUpload(data) {
-  console.log(data);
 }
 
 function LocationTracker({ lat, setLat, long, setLong }) {
@@ -70,8 +63,9 @@ export default function CreateService() {
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const [serviceCity, setServiceCity] = useState("");
-  // const [webpImages, setWebpImages] = useState([]);
-  const dispatch = useDispatch();
+  // const [serviceImages, setServiceImages] = useState([]);
+  // const dispatch = useDispatch();
+  const [files, setFiles] = useState([]);
   const { handleOpenAuthModal } = useContext(AppContext);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
@@ -79,8 +73,8 @@ export default function CreateService() {
   const location = useLocation();
   console.log(location.pathname);
 
-  const updateUserMutation = useMutation({
-    mutationFn: updateRegistrationMutation,
+  const serviceCreationMutation = useMutation({
+    mutationFn: serviceMutation,
     onError: (error) => {
       const { message } = errorFormat(error);
       toast.error(message, {
@@ -89,13 +83,7 @@ export default function CreateService() {
       });
     },
     onSuccess: (data) => {
-      // save user and token to redux store here
-      if (data.data.token) {
-        // Save token to redux store because we will need it later in the future.
-        // close modal
-        dispatch(setUserAndToken(data.data));
-        navigate("/service/create");
-      }
+      console.log(data);
     },
   });
 
@@ -111,9 +99,19 @@ export default function CreateService() {
     }
   }, [handleOpenAuthModal, location.pathname, navigate, user]);
 
-  function handleProfileUpdate() {
-    console.log("here");
-    updateUserMutation.mutate({
+  async function handleCreateService() {
+    // Get presignedUrl and Upload images to AWS;
+    // handleUpload();
+    const serviceUrl = [];
+    if (files) {
+      for (let file of files) {
+        console.log(file);
+        const url = await getPresignedUrl(file.type, token);
+        await uploadToS3(url, file);
+        serviceUrl.push(url);
+      }
+    }
+    serviceCreationMutation.mutate({
       city: serviceCity,
       accountType: "services",
       name: serviceName,
@@ -169,9 +167,9 @@ export default function CreateService() {
           />
           <div>
             <h1>Please provide photos of the service you&apos;re rendering.</h1>
-            <ImageCompression onUpload={handleUpload} />
+            <ImageCompression files={files} setFiles={setFiles} />
           </div>
-          <Button color="red" className="w-80" onClick={handleProfileUpdate}>
+          <Button color="red" className="w-80" onClick={handleCreateService}>
             Create
           </Button>
         </div>

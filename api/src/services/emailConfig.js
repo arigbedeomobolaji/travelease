@@ -5,9 +5,9 @@ import Verification from "../models/verification.model.js";
 import { generateCode } from "../utils/shared.js";
 
 AWS.config.update({
-  accessKeyId: keys.AMAZON_SES_ACCESS_KEY,
-  secretAccessKey: keys.AMAZON_SES_SECRET_ACCESS_KEY,
-  region: keys.AMAZON_SES_REGION,
+  accessKeyId: keys.AWS_SES_ACCESS_KEY,
+  secretAccessKey: keys.AWS_SES_SECRET_ACCESS_KEY,
+  region: keys.AWS_SES_REGION,
 });
 
 // create Nodemailer SES transport

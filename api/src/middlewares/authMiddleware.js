@@ -38,7 +38,6 @@ export const authMiddleware = async (req, res, next) => {
       const tokenId = user.tokens.findIndex(
         (token) => token.token === userToken
       );
-      console.log(tokenId);
       if (user && tokenId > -1) {
         user.tokens.splice(tokenId, 1);
         await user.save();

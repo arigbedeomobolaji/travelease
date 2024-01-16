@@ -6,11 +6,20 @@ export const authMutation = (userData) => {
   return axios.post("/users" + route, userData);
 };
 
-export const updateRegistrationMutation = (userData, context) => {
-  console.log(userData, context);
+export const updateRegistrationMutation = (userData) => {
   const { token } = userData;
   delete userData.token;
   return axios.post("/users/registration", userData, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
+export const serviceMutation = (serviceData) => {
+  const { token } = serviceData;
+  delete serviceData.token;
+  return axios.post("/service/create", serviceData, {
     headers: {
       Authorization: "Bearer " + token,
     },
