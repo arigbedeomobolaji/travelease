@@ -32,7 +32,6 @@ export const authMiddleware = async (req, res, next) => {
       });
 
       const user = await User.findById(data._id);
-      console.log(user);
       if (!user) {
         next(createHttpError.Unauthorized("Please Authenticate."));
       }

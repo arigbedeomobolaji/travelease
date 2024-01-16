@@ -5,6 +5,7 @@ import { createContext, useState } from "react";
 import ServicePage from "./pages/ServicePage";
 import "react-toastify/dist/ReactToastify.css";
 import Service from "./pages/Service";
+
 export const AppContext = createContext();
 
 function App() {

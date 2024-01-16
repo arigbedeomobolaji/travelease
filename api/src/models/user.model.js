@@ -32,6 +32,25 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    name: String,
+    registrationNumber: String,
+    country: String,
+    state: String,
+    city: String,
+    location: {
+      lat: Number,
+      long: Number,
+    },
+    accountType: {
+      type: String,
+      default: "user",
+    },
+    services: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Service",
+      },
+    ],
     tokens: [
       {
         token: {
@@ -62,10 +81,15 @@ userSchema.methods.generateAuthToken = async function () {
   try {
     const user = this;
     // Generate Auth token for user
+    const userObject = user;
+    const id = userObject._id.toString();
+    delete userObject.password;
+    delete userObject.tokens;
+    delete userObject._id;
     const token = await jwt.sign(
       {
-        _id: user._id.toString(),
-        email: user.email,
+        _id: id,
+        ...userObject,
       },
       tokenSecret,
       { expiresIn }

@@ -10,18 +10,15 @@ import {
 import { Divider } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import validator from "validator";
-
 import { TiInfoLarge } from "react-icons/ti";
 import { authMutation } from "../../../queries/user.mutation";
 import { errorFormat } from "../../../utils/errorFormat";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { setUser, setUserAndToken } from "../../../redux/slices/userSlice";
-
 import "react-toastify/dist/ReactToastify.css";
 
 function MyInput({ label, value, setValue, type, icon, constraints }) {
@@ -89,7 +86,6 @@ export default function LoginRegister({
 
   function handleAuth() {
     // code for handling Authentication Here
-    console.log(action);
     if (action === "Register") {
       mutation.mutate({ email, password });
     } else {

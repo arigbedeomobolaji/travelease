@@ -106,3 +106,25 @@ export const logoutUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const completeRegistration = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        ...data,
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updatedUser) {
+      throw createHttpError.InternalServerError("Error Saving data.");
+    }
+    const token = await updatedUser.generateAuthToken();
+    res.status(201).json({ user: updatedUser, token });
+  } catch (error) {
+    next(error);
+  }
+};
