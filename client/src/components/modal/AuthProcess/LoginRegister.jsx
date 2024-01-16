@@ -8,7 +8,8 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 import { Divider } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
@@ -20,6 +21,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { setUser, setUserAndToken } from "../../../redux/slices/userSlice";
 import "react-toastify/dist/ReactToastify.css";
+import { AppContext } from "../../../App";
 
 function MyInput({ label, value, setValue, type, icon, constraints }) {
   return (
@@ -45,16 +47,15 @@ function MyInput({ label, value, setValue, type, icon, constraints }) {
   );
 }
 
-export default function LoginRegister({
-  label,
-  setShowVerify,
-  handleOpenAuthModal,
-}) {
+export default function LoginRegister({ label, setShowVerify }) {
   const [showPassword, setShowPassword] = useState(false);
+  const { handleOpenAuthModal } = useContext(AppContext);
   const [action, setAction] = useState(label);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const location = useLocation();
+  console.log(location);
 
   const mutation = useMutation({
     mutationFn: authMutation,

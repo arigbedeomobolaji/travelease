@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa6";
 import { MdLogin } from "react-icons/md";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import SwiperCard from "./SwiperCard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
+import { AppContext } from "../App";
 
 export default function MediumCard({
   serviceLocation,
@@ -16,9 +17,11 @@ export default function MediumCard({
   serviceImages,
   serviceId,
 }) {
+  const { handleOpenAuthModal } = useContext(AppContext);
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+
   function goToServicePage() {
     navigate(`/services/${serviceId}`);
   }
@@ -26,6 +29,7 @@ export default function MediumCard({
   function handleLikes() {
     if (!user) {
       // open authModal
+      handleOpenAuthModal();
       return;
     }
     setLiked((cur) => !cur);

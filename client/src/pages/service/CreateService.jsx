@@ -1,80 +1,20 @@
 /* eslint-disable react/prop-types */
-import { Button, Input, Option, Select } from "@material-tailwind/react";
-import React, { useContext, useEffect, useState } from "react";
-import { getStatesOfCountry } from "../utils/countries";
+import { Button, Input, Textarea } from "@material-tailwind/react";
+import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useCountries } from "use-react-countries";
-import { updateRegistrationMutation } from "../queries/user.mutation";
-import { errorFormat } from "../../../api/src/utils/shared";
+import { updateRegistrationMutation } from "../../queries/user.mutation";
+import { errorFormat } from "../../../../api/src/utils/shared";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { AppContext } from "../App";
+import { AppContext } from "../../App";
 import {
   selectToken,
   selectUser,
   setUserAndToken,
-} from "../redux/slices/userSlice";
+} from "../../redux/slices/userSlice";
 import { TiInfoLarge } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
-
-export function CountriesSelect({ country, setCountry }) {
-  const { countries } = useCountries();
-
-  return (
-    <div className="w-80">
-      <Select
-        size="lg"
-        label="Select Country"
-        value={country}
-        onChange={(e) => setCountry(e)}
-        selected={(element) =>
-          element &&
-          React.cloneElement(element, {
-            disabled: true,
-            className:
-              "flex items-center opacity-100 px-0 gap-2 pointer-events-none",
-          })
-        }
-      >
-        {countries.map(({ name, flags }) => (
-          <Option key={name} value={name} className="flex items-center gap-2">
-            <img
-              src={flags.svg}
-              alt={name}
-              className="h-5 w-5 rounded-full object-cover"
-            />
-            {name}
-          </Option>
-        ))}
-      </Select>
-    </div>
-  );
-}
-
-export function SelectInput({ data, label, value, setValue }) {
-  return (
-    <div className="w-80">
-      <Select
-        label={label}
-        value={value}
-        onChange={(datum) => {
-          console.log(datum);
-          setValue(datum);
-        }}
-      >
-        {data?.map((datum) => (
-          <Option
-            key={datum.stateCode}
-            value={datum.state}
-            className="text-lg text-gray-500 font-lato hover:!bg-red-50 active:bg-red-50 focus:bg-red-50"
-          >
-            {datum.state}
-          </Option>
-        ))}
-      </Select>
-    </div>
-  );
-}
+import { useLocation, useNavigate } from "react-router-dom";
+import ImageCompression from "../../components/images/ImageCompressor";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -89,6 +29,10 @@ function InputIcon({ value, setValue, label, icon, readOnly }) {
       />
     </div>
   );
+}
+
+function handleUpload(data) {
+  console.log(data);
 }
 
 function LocationTracker({ lat, setLat, long, setLong }) {
@@ -120,20 +64,20 @@ function LocationTracker({ lat, setLat, long, setLong }) {
     </div>
   );
 }
-export default function Service() {
-  const [companyName, setCompanyName] = useState("");
-  const [companyId, setCompanyId] = useState("");
+export default function CreateService() {
+  const [serviceName, setServiceName] = useState("");
+  const [serviceDescription, setServiceDescription] = useState("");
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
-  const [companyCity, setCompanyCity] = useState("");
-  const [country, setCountry] = useState("Nigeria");
-  const [state, setState] = useState("");
+  const [serviceCity, setServiceCity] = useState("");
+  // const [webpImages, setWebpImages] = useState([]);
   const dispatch = useDispatch();
   const { handleOpenAuthModal } = useContext(AppContext);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const navigate = useNavigate();
-  console.log(token);
+  const location = useLocation();
+  console.log(location.pathname);
 
   const updateUserMutation = useMutation({
     mutationFn: updateRegistrationMutation,
@@ -157,29 +101,31 @@ export default function Service() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
-      handleOpenAuthModal();
+      navigate("/", {
+        state: location.pathname,
+      });
     }
 
-    if (user.accountType === "services") {
+    if (user?.accountType === "services") {
       navigate("/service/create");
     }
-  }, [handleOpenAuthModal, navigate, user]);
+  }, [handleOpenAuthModal, location.pathname, navigate, user]);
+
   function handleProfileUpdate() {
     console.log("here");
     updateUserMutation.mutate({
-      registrationNumber: companyId,
-      country,
-      state,
-      city: companyCity,
+      city: serviceCity,
       accountType: "services",
-      name: companyName,
+      name: serviceName,
       location: {
         lat,
         long,
       },
       token,
     });
+  }
+  if (!user) {
+    return;
   }
   return (
     <div>
@@ -188,37 +134,32 @@ export default function Service() {
         {/* Login */}
         <div className="flex gap-5 flex-col shadow-md shadow-red-50/70 my-10 max-w-xl mx-auto p-10">
           <h1 className="text-[25px] text-extrabold font-lato text-gray-800">
-            Register your company with us.
+            Create a service
           </h1>
           <InputIcon
             value={user?.email}
-            label="Company Email"
+            label="Service Email"
             icon={
               <p className="font-extrabold font-xl font-lato items-center">@</p>
             }
             readOnly
           />
           <InputIcon
-            value={companyName}
-            setValue={setCompanyName}
-            label="Company Name"
+            value={serviceName}
+            setValue={setServiceName}
+            label="Service Name"
           />
+          <div className="w-80">
+            <Textarea
+              label="Service Description"
+              value={serviceDescription}
+              onChange={(e) => setServiceDescription(e.target.value)}
+            />
+          </div>
           <InputIcon
-            value={companyId}
-            setValue={setCompanyId}
-            label="Company Id"
-          />
-          <CountriesSelect country={country} setCountry={setCountry} />
-          <SelectInput
-            label="State"
-            data={getStatesOfCountry(country)}
-            setValue={setState}
-            value={state}
-          />
-          <InputIcon
-            value={companyCity}
-            setValue={setCompanyCity}
-            label="Company City"
+            value={serviceCity}
+            setValue={setServiceCity}
+            label="Service City"
           />
           <LocationTracker
             lat={lat}
@@ -226,8 +167,12 @@ export default function Service() {
             long={long}
             setLong={setLong}
           />
+          <div>
+            <h1>Please provide photos of the service you&apos;re rendering.</h1>
+            <ImageCompression onUpload={handleUpload} />
+          </div>
           <Button color="red" className="w-80" onClick={handleProfileUpdate}>
-            Continue
+            Create
           </Button>
         </div>
       </div>

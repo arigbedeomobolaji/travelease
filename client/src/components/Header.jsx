@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 import Search from "./search/Search";
-import { useMediaQuery } from "@react-hook/media-query";
 import Container from "./Container";
 import AuthModal from "./modal/AuthProcess/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +16,7 @@ import { logoutUser } from "../queries/user.queries";
 import { toast } from "react-toastify";
 import { errorFormat } from "../utils/errorFormat";
 import { AppContext } from "../App";
+import useScreenSize from "../hooks/useScreenSize";
 
 const authItems = [
   {
@@ -54,7 +54,10 @@ function MenuItem({ label, route, handleOpenAuthModal, setLabel }) {
 }
 
 export default function Header() {
-  const isVerySmallScreen = useMediaQuery("(max-width: 450px)");
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { handleOpenAuthModal, openAuthModal } = useContext(AppContext);
+  const { isVerySmallScreen, isTabletScreen } = useScreenSize();
   const [toggleMenu, setToggleMenu] = useState(false);
   const [label, setLabel] = useState("");
   const user = useSelector(selectUser);
@@ -68,7 +71,6 @@ export default function Header() {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (logout?.data) {
@@ -94,7 +96,12 @@ export default function Header() {
     }
   }, [dispatch, logout.error, logout.isError]);
 
-  const { handleOpenAuthModal, openAuthModal } = useContext(AppContext);
+  useEffect(() => {
+    if (location?.state === "/service") {
+      handleOpenAuthModal();
+    }
+  }, [location.state]);
+
   return (
     <>
       <div className="shadow-md shadow-red-50 drop-shadow-sm font-lato py-5 relative z-20">
@@ -142,12 +149,24 @@ export default function Header() {
                   <div className="absolute top-20 right-0 shadow-md shadow-red-50 z-50 bg-white">
                     <div key="items" mode="vertical" className="w-[200px]">
                       {user?._id && token ? (
-                        <div
-                          className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50"
-                          onClick={() => logout.refetch()}
-                        >
-                          Log out
-                        </div>
+                        <>
+                          {user?.accountType === "services" && (
+                            <div className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50">
+                              <Link
+                                to="/service/create"
+                                className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50 w-full"
+                              >
+                                Create Service
+                              </Link>
+                            </div>
+                          )}
+                          <div
+                            className="text-gray-800 rounded-lg cursor-pointer p-3 hover:bg-red-50"
+                            onClick={() => logout.refetch()}
+                          >
+                            Log out
+                          </div>
+                        </>
                       ) : (
                         authItems.map((item) => (
                           <MenuItem
@@ -163,7 +182,7 @@ export default function Header() {
                         <MenuItem
                           label="Own a Service"
                           key={"sellers"}
-                          route="sellers"
+                          route="service"
                         />
                       )}
                       <div className="w-full h-0 py-3 shadow-sm shadow-red-50 border-red-100" />
@@ -179,7 +198,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-          {!isVerySmallScreen && <Search />}
+          {!isTabletScreen && location.pathname === "/" && <Search />}
         </Container>
       </div>
       {/* Modal codes comes here */}
