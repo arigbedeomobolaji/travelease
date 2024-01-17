@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
-import { services } from "../data/services";
 import useScreenSize from "../hooks/useScreenSize";
 import { IoMdShare } from "react-icons/io";
 import { Divider } from "antd";
@@ -19,16 +18,22 @@ import DatePicker from "../components/DatePicker";
 import Reviews from "../components/Reviews";
 import StarIcon from "../components/StarIcon";
 import ThingsToKnow from "../components/ThignsToKnow";
+import { useSelector } from "react-redux";
+import { selectServices } from "../redux/slices/servicesSlice";
 
 export default function ServicePage() {
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
   const { serviceId } = useParams();
-  const service = services.find(
-    (service) => service.serviceId.toString() === serviceId
+  const dbService = useSelector(selectServices);
+  const service = dbService.find(
+    (service) => service?._id.toString() === serviceId
   );
+
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  console.log(service);
 
   const selectionRange = {
     startDate,
@@ -43,6 +48,9 @@ export default function ServicePage() {
   function handlePhotoPreviewModal() {
     setOpenPreviewModal((cur) => !cur);
   }
+  // if (true) {
+  //   return <p>Maintenance mode</p>;
+  // }
   return (
     <>
       <div className="pt-7 font-roboto scroll-smooth">
@@ -50,7 +58,7 @@ export default function ServicePage() {
           {/* Category / Like and Share */}
           <div className="flex justify-between items-center gap-5">
             <h1 className="text-[25px] md:text-[35px] font-extrabold transition-all ease-linear">
-              {service.serviceCategory}
+              {service?.serviceCategory}
             </h1>
             <div className="flex justify-between items-center gap-5">
               <IconStyle
@@ -71,15 +79,18 @@ export default function ServicePage() {
               <div className="relative pt-5">
                 <img
                   className="h-96 w-full object-cover object-center rounded-lg"
-                  src={service.serviceImages[0].src}
-                  alt={service.serviceImages[0].id}
+                  src={
+                    import.meta.env.VITE_S3_IMAGE_URL +
+                    service?.serviceImages[0]
+                  }
+                  alt={service?.serviceImages[0]}
                 />
                 <h1 className="absolute bottom-0 right-0 font-extrabold text-white text-[20px] bg-red-300 px-5 p-1 rounded-tl-lg">
-                  1/{service.serviceImages.length}
+                  1/{service?.serviceImages.length}
                 </h1>
               </div>
             ) : (
-              <PreviewManyPhotos images={service.serviceImages} />
+              <PreviewManyPhotos images={service?.serviceImages} />
             )}
           </div>
           {/* Details about service */}
@@ -90,18 +101,19 @@ export default function ServicePage() {
               }`}
               className="pt-3 font-roboto"
             >
-              Comfortable Room in {service.company}, {service.serviceState}
+              Comfortable Room in {service?.serviceLocation?.city},{" "}
+              {service?.serviceLocation?.state}
             </Typography>
-            <StarIcon rating={service.serviceRating} />
-            <Typography variant="paragraph" className="font-lato text-justify">
-              {service.companyDescription}
-            </Typography>
+            <StarIcon rating={service?.serviceRating} />
+            {/* <Typography variant="paragraph" className="font-lato text-justify">
+              {service?.serviceDescription}
+            </Typography> */}
           </div>
           <Divider />
           {/* Payment and Reservation */}
 
           <InlineContainer alignment="text-justify">
-            <p className="leading-7">{service.companyDescription}</p>
+            <p className="leading-7">{service?.serviceDescription}</p>
             <Divider />
             <Environs />
 
@@ -125,7 +137,7 @@ export default function ServicePage() {
             }}
           >
             <ReservationCard
-              price={service.servicePrice}
+              price={service?.servicePrice}
               startDate={startDate}
               endDate={endDate}
             />
@@ -144,7 +156,7 @@ export default function ServicePage() {
       <PhotosPreviewModal
         openPreviewModal={openPreviewModal}
         handlePhotoPreviewModal={handlePhotoPreviewModal}
-        images={service.serviceImages}
+        images={service?.serviceImages}
       />
     </>
   );

@@ -11,19 +11,19 @@ import { AppContext } from "../App";
 
 export default function MediumCard({
   serviceLocation,
-  serviceState,
   servicePrice,
   serviceRating,
   serviceImages,
-  serviceId,
+  _id,
 }) {
   const { handleOpenAuthModal } = useContext(AppContext);
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const { city, state } = serviceLocation;
 
   function goToServicePage() {
-    navigate(`/services/${serviceId}`);
+    navigate(`/services/${_id}`);
   }
 
   function handleLikes() {
@@ -60,7 +60,7 @@ export default function MediumCard({
       </div>
       <div className="flex justify-between items-center px-2">
         <h3 className="font-bold text-lg md:text-md">
-          {serviceLocation} - {serviceState}
+          {city} - {state}
         </h3>
         {serviceRating && (
           <div className="flex h-full justify-end items-center py-2">

@@ -1,381 +1,273 @@
 export const services = [
   {
-    serviceId: 1,
+    _id: 1,
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Mercy Land Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Beoba",
-    serviceLocation: "Aminu Kano Crescent, Wuse",
-    serviceState: "Abuja",
+    serviceLocation: {
+      state: "Abuja",
+      city: "Aminu Kano Crescent, Wuse",
+      country: "Nigeria",
+    },
     servicePrice: 160000,
     serviceRating: 4,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 2,
+    _id: 2,
     serviceCategory: "Hotels",
     servicePackage: "Deluxe",
     company: "Grace Limited",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Sally",
-    serviceLocation: "Ajao Estate, Ikeja",
-    serviceState: "Lagos",
+    serviceLocation: {
+      state: "Lagos",
+      city: "Ajao Estate, Ikeja",
+      country: "Nigeria",
+    },
     servicePrice: 19000,
     serviceRating: 4,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
 
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 3,
+    _id: 3,
     serviceCategory: "Events",
     servicePackage: "Classic",
     company: "Mercy Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Sommer",
-    serviceLocation: "Mando",
-    serviceState: "Kaduna",
+    serviceLocation: { state: "Kaduna", city: "Mando", country: "Nigeria" },
     servicePrice: 20000,
     serviceRating: 3,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 4,
+    _id: 4,
     serviceCategory: "Hotels",
     servicePackage: "Classic",
     company: "Leisure Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Assaulter",
-    serviceLocation: "Ring Road, Osogbo",
-    serviceState: "Osun",
+    serviceLocation: {
+      state: "Osun",
+      city: "Ring road, Osogbo",
+      country: "Nigeria",
+    },
     servicePrice: 23000,
     serviceRating: 5,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 5,
+    _id: 5,
     serviceCategory: "Apartment",
     servicePackage: "Deluxe",
     company: "Lux Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Dux",
-    serviceLocation: "Aminu Kano, Wuse",
-    serviceState: "Abuja",
+    serviceLocation: {
+      state: "Abuja",
+      city: "Aminu Kano, Wuse",
+      country: "Nigeria",
+    },
     servicePrice: 16000,
     serviceRating: 4,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 6,
+    _id: 6,
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Funfair Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Leisurely",
-    serviceLocation: "Obasanjo Way, Asaba",
-    serviceState: "Enugu",
+    serviceLocation: {
+      state: "Enugu",
+      city: "Obsanjo Way",
+      country: "Nigeria",
+    },
     servicePrice: 16000,
     serviceRating: 5,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 7,
+    _id: 7,
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Vox",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Voxer",
-    serviceLocation: "Aminu Kano Crescent, Wuse",
-    serviceState: "Abuja",
+    serviceLocation: {
+      state: "Abuja",
+      city: "Aminu Kano Crescent, Wuse",
+      country: "Nigeria",
+    },
     servicePrice: 19000,
     serviceRating: 3.5,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 8,
+    _id: 8,
     serviceCategory: "Hotels",
     servicePackage: "Executive",
     company: "Mercy Land Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Summer",
-    serviceLocation: "Alagbaka",
-    serviceState: "Akure",
+    serviceLocation: { state: "Akure", city: "Alagbaka", country: "Nigeria" },
     servicePrice: 10000,
     serviceRating: 4,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 9,
+    _id: 9,
     serviceCategory: "Hotels",
     servicePackage: "Deluxe",
     company: "Incorporately Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "Chatty",
-    serviceLocation: "Benue Links, Makurdi",
-    serviceState: "Benue",
+    serviceLocation: {
+      state: "Benue",
+      city: "Banue Links, Makurdi",
+      country: "Nigeria",
+    },
     servicePrice: 14500,
     serviceRating: 5,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
   {
-    serviceId: 10,
+    _id: 10,
     serviceCategory: "Events",
     servicePackage: "Executive",
     company: "Sandbest Inc",
-    companyDescription:
+    serviceDescription:
       "Nestled in the heart of a vibrant city, our hotel offers a seamless blend of modern luxury and timeless elegance. Indulge in meticulously designed rooms, exquisite dining, and personalized service. Unwind at our spa, take a dip in the rooftop pool, and experience unparalleled comfort in a sophisticated urban oasis.",
     serviceName: "SandWork",
-    serviceLocation: "Sabo, Kano",
-    serviceState: "Kano",
+    serviceLocation: { state: "Kano", city: "Sabo, Kano", country: "Nigeria" },
     servicePrice: 17800,
     serviceRating: 4,
     serviceImages: [
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
-      {
-        src: "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
-        id: 1,
-      },
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/771408f3-106e-449d-99d5-da6e20919942.jpeg?im_w=720",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
+
+      "https://a0.muscache.com/im/pictures/miso/Hosting-922949911064943410/original/5ce29362-a426-4ac4-bd8a-65a2e00033c8.jpeg?im_w=1200",
     ],
   },
 ];

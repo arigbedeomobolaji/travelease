@@ -17,6 +17,7 @@ const transporter = nodemailer.createTransport({
 
 export async function sendVerificationCode(userEmail) {
   const code = generateCode();
+  console.log("code has been sent to your email", code);
   try {
     const newVerification = await Verification.updateOrCreate(code, userEmail);
     console.log(newVerification, " new", code, userEmail);

@@ -12,8 +12,8 @@ export default function PreviewManyPhotos({ images }) {
       <div className="col-span-1 xl:col-span-3">
         <img
           className="h-[420px] w-full object-cover object-center rounded-lg"
-          src={firstImage.src}
-          alt={firstImage.id}
+          src={import.meta.env.VITE_S3_IMAGE_URL + firstImage}
+          alt={firstImage}
           loading="lazy"
         />
       </div>
@@ -21,19 +21,19 @@ export default function PreviewManyPhotos({ images }) {
       <div className="hidden xl:grid grid-cols-2 col-span-2 gap-2 max-h-[450px]">
         {otherImages.length === 1 ? (
           <img
-            key={otherImages[0].id}
+            key={otherImages[0]}
             className="h-full bg-red-500 w-full object-cover object-center rounded-lg col-span-2"
-            src={otherImages[0].src}
-            alt={otherImages[0].id}
+            src={import.meta.env.VITE_S3_IMAGE_URL + otherImages[0]}
+            alt={otherImages[0]}
             loading="lazy"
           />
         ) : otherImages.length === 2 ? (
           otherImages.map((image, index) => (
             <img
-              key={image.id + index}
-              className="h-full w-full object-cover object-center rounded-lg col-span-1"
-              src={image.src}
-              alt={image.id}
+              key={image + index}
+              className="h-full w-full object-cover bg-red-500 rounded-lg col-span-1"
+              src={import.meta.env.VITE_S3_IMAGE_URL + image}
+              alt={image}
               loading="lazy"
             />
           ))
@@ -41,18 +41,18 @@ export default function PreviewManyPhotos({ images }) {
           otherImages.map((image, index) =>
             index === otherImages.length - 1 ? (
               <img
-                key={image.id + index}
+                key={image + index}
                 className="h-[200px] w-full object-cover object-center rounded-lg col-span-2"
-                src={image.src}
-                alt={image.id}
+                src={import.meta.env.VITE_S3_IMAGE_URL + image}
+                alt={image}
                 loading="lazy"
               />
             ) : (
               <img
-                key={image.id + index}
+                key={image + index}
                 className="h-[200px] w-full object-cover object-center rounded-lg col-span-1"
-                src={image.src}
-                alt={image.id}
+                src={import.meta.env.VITE_S3_IMAGE_URL + image}
+                alt={image}
                 loading="lazy"
               />
             )
@@ -60,10 +60,10 @@ export default function PreviewManyPhotos({ images }) {
         ) : (
           otherImages.map((image, index) => (
             <img
-              key={image.id + index}
+              key={image + index}
               className="h-[200px] w-full object-cover object-center rounded-lg col-span-1"
-              src={image.src}
-              alt={image.id}
+              src={import.meta.env.VITE_S3_IMAGE_URL + image}
+              alt={image}
               loading="lazy"
             />
           ))

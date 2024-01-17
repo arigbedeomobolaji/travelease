@@ -1,11 +1,8 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
-// import { DateRangePicker, DateRange } from "react-date-range";
 import { AppContext } from "../../App";
 import Filter from "./Filter";
-// import MenuItem from "../Menu";
-// import { guestData } from "../../data/data";
 import GuestsFilterMenu from "../GuestsFilterMenu";
 import BaseDatePicker from "../BaseDatePicker";
 import useScreenSize from "../../hooks/useScreenSize";

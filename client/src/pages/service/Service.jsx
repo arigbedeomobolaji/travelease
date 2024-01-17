@@ -13,10 +13,11 @@ import {
   selectUser,
   setUserAndToken,
 } from "../../redux/slices/userSlice";
-import { TiInfoLarge } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import CountriesSelect from "../../components/CountriesSelect";
 import { SelectInput } from "../../components/SelectInput";
+import LocationTracker from "../../components/LocationTracker";
+import useCoordinates from "../../hooks/useCoordinates";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -33,41 +34,9 @@ function InputIcon({ value, setValue, label, icon, readOnly }) {
   );
 }
 
-function LocationTracker({ lat, setLat, long, setLong }) {
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-        },
-        (error) => {
-          console.error("Error getting location:", error.message);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, [setLat, setLong]);
-  console.log(lat, long);
-  return (
-    <div className="flex gap-5 items-center justify-center w-80 flex-col">
-      <Input value={lat || 0} label="Latitude" readOnly className="w-full" />
-      <Input value={long || 0} label="Longitude" readOnly className="w-full" />
-      <p className="font-lato font-normal italic text-md text-gray-700 flex items-center">
-        <TiInfoLarge /> Lat and Long let&apos;s know your exact location on the
-        map.
-      </p>
-    </div>
-  );
-}
-
 export default function Service() {
   const [companyName, setCompanyName] = useState("");
   const [companyId, setCompanyId] = useState("");
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
   const [companyCity, setCompanyCity] = useState("");
   const [country, setCountry] = useState("Nigeria");
   const [state, setState] = useState("");
@@ -77,6 +46,7 @@ export default function Service() {
   const token = useSelector(selectToken);
   const navigate = useNavigate();
   const location = useLocation();
+  const { lat, long } = useCoordinates();
   console.log(location.pathname);
 
   const updateUserMutation = useMutation({
@@ -169,12 +139,7 @@ export default function Service() {
             setValue={setCompanyCity}
             label="Company City"
           />
-          <LocationTracker
-            lat={lat}
-            setLat={setLat}
-            long={long}
-            setLong={setLong}
-          />
+          <LocationTracker lat={lat} long={long} />
           <Button color="red" className="w-80" onClick={handleProfileUpdate}>
             Continue
           </Button>

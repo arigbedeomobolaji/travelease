@@ -47,9 +47,9 @@ export default function PhotosPreviewModal({
             {/* Images dumping */}
             {images.map((image, index) => (
               <ImagePreview
-                key={image.id + index}
-                src={image.src}
-                id={image.id}
+                key={image + index}
+                src={import.meta.env.VITE_S3_IMAGE_URL + image}
+                id={image + index}
               />
             ))}
           </CardBody>

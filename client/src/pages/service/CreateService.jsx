@@ -8,13 +8,14 @@ import { toast, ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { AppContext } from "../../App";
 import { selectToken, selectUser } from "../../redux/slices/userSlice";
-import { TiInfoLarge } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import ImageCompression from "../../components/images/ImageCompressor";
 import { getPresignedUrl, uploadToS3 } from "../../utils/upload";
 import CountriesSelect from "../../components/CountriesSelect";
 import { getStatesOfCountry } from "../../utils/countries";
 import { SelectInput } from "../../components/SelectInput";
+import useCoordinates from "../../hooks/useCoordinates";
+import LocationTracker from "../../components/LocationTracker";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -31,35 +32,35 @@ function InputIcon({ value, setValue, label, icon, readOnly }) {
   );
 }
 
-function LocationTracker({ lat, setLat, long, setLong }) {
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
-        },
-        (error) => {
-          console.error("Error getting location:", error.message);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, [setLat, setLong]);
-  console.log(lat, long);
-  return (
-    <div className="flex gap-5 items-center justify-center w-80 flex-col">
-      <Input value={lat || 0} label="Latitude" readOnly className="w-full" />
-      <Input value={long || 0} label="Longitude" readOnly className="w-full" />
-      <p className="font-lato font-normal italic text-md text-gray-700 flex items-center">
-        <TiInfoLarge /> Lat and Long let&apos;s know your exact location on the
-        map.
-      </p>
-    </div>
-  );
-}
+// function LocationTracker({ lat, setLat, long, setLong }) {
+//   useEffect(() => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           console.log(position);
+//           setLat(position.coords.latitude);
+//           setLong(position.coords.longitude);
+//         },
+//         (error) => {
+//           console.error("Error getting location:", error.message);
+//         }
+//       );
+//     } else {
+//       console.error("Geolocation is not supported by this browser.");
+//     }
+//   }, [setLat, setLong]);
+//   console.log(lat, long);
+//   return (
+//     <div className="flex gap-5 items-center justify-center w-80 flex-col">
+//       <Input value={lat || 0} label="Latitude" readOnly className="w-full" />
+//       <Input value={long || 0} label="Longitude" readOnly className="w-full" />
+//       <p className="font-lato font-normal italic text-md text-gray-700 flex items-center">
+//         <TiInfoLarge /> Lat and Long let&apos;s know your exact location on the
+//         map.
+//       </p>
+//     </div>
+//   );
+// }
 export default function CreateService() {
   const user = useSelector(selectUser);
   const { handleOpenAuthModal } = useContext(AppContext);
@@ -71,13 +72,11 @@ export default function CreateService() {
   const [serviceCity, setServiceCity] = useState(user?.city);
   const [serviceCountry, setServiceCountry] = useState(user?.country);
   const [serviceState, setServiceState] = useState(user?.state);
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
+  // const [lat, setLat] = useState(null);
+  // const [long, setLong] = useState(null);
   const [percentage, setPercentage] = useState(0);
-  console.log(location.pathname);
-  // const [serviceImages, setServiceImages] = useState([]);
-  // const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
+  const { lat, long } = useCoordinates();
 
   const serviceCreationMutation = useMutation({
     mutationFn: serviceMutation,
@@ -88,8 +87,7 @@ export default function CreateService() {
         theme: "colored",
       });
     },
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       navigate("/");
     },
   });
@@ -113,7 +111,6 @@ export default function CreateService() {
     try {
       if (files) {
         for (let file of files) {
-          console.log(file);
           const { url, key } = await getPresignedUrl(file.type, token);
           await uploadToS3(url, file, (uploadPercentage) => {
             console.log(`Upload Progress: ${uploadPercentage}%`);
@@ -126,7 +123,6 @@ export default function CreateService() {
       console.log(error);
     }
 
-    console.log(serviceImageUrl);
     serviceCreationMutation.mutate({
       serviceLocation: {
         city: serviceCity,
@@ -136,8 +132,7 @@ export default function CreateService() {
       accountType: "services",
       servicePackage,
       serviceExactLocation: {
-        lat,
-        long,
+        coordinates: [long, lat],
       },
       serviceImages: serviceImageUrl,
       token,
@@ -150,8 +145,6 @@ export default function CreateService() {
   return (
     <div>
       <div>
-        {/* services */}
-        {/* Login */}
         <div className="flex gap-5 flex-col shadow-md shadow-red-50/70 my-10 max-w-xl mx-auto p-10">
           <h1 className="text-[25px] text-extrabold font-lato text-gray-800">
             Create a service
@@ -191,12 +184,7 @@ export default function CreateService() {
             setValue={setServiceCity}
             label="Service City"
           />
-          <LocationTracker
-            lat={lat}
-            setLat={setLat}
-            long={long}
-            setLong={setLong}
-          />
+          <LocationTracker lat={lat} long={long} />
           <div>
             <h1>Please provide photos of the service you&apos;re rendering.</h1>
             <ImageCompression files={files} setFiles={setFiles} />
@@ -204,7 +192,7 @@ export default function CreateService() {
           {!!percentage && (
             <div>
               <p>Uploading images</p>
-              <Progress value={percentage} label="Completed" />;
+              <Progress value={percentage} label="Completed" />
             </div>
           )}
           <Button color="red" className="w-80" onClick={handleCreateService}>
