@@ -1,4 +1,4 @@
-import Verification from "../models/verification.model.js";
+import Verification from "../models/verificationModel.js";
 
 setInterval(async () => {
   console.log("Here in Server.js");

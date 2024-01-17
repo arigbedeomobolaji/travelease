@@ -29,7 +29,7 @@ export const serviceImageUpload = async (req, res, next) => {
       ContentType: contentType,
     };
     const url = await s3.getSignedUrlPromise("putObject", params);
-    res.status(200).send(url);
+    res.status(200).send({ url, key });
   } catch (error) {
     next(error);
   }

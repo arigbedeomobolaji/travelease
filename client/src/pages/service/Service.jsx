@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Button, Input, Option, Select } from "@material-tailwind/react";
-import React, { useContext, useEffect, useState } from "react";
+import { Button, Input } from "@material-tailwind/react";
+import { useContext, useEffect, useState } from "react";
 import { getStatesOfCountry } from "../../utils/countries";
 import { useMutation } from "@tanstack/react-query";
-import { useCountries } from "use-react-countries";
 import { updateRegistrationMutation } from "../../queries/user.mutation";
 import { errorFormat } from "../../../../api/src/utils/shared";
 import { toast, ToastContainer } from "react-toastify";
@@ -16,65 +15,8 @@ import {
 } from "../../redux/slices/userSlice";
 import { TiInfoLarge } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
-
-export function CountriesSelect({ country, setCountry }) {
-  const { countries } = useCountries();
-
-  return (
-    <div className="w-80">
-      <Select
-        size="lg"
-        label="Select Country"
-        value={country}
-        onChange={(e) => setCountry(e)}
-        selected={(element) =>
-          element &&
-          React.cloneElement(element, {
-            disabled: true,
-            className:
-              "flex items-center opacity-100 px-0 gap-2 pointer-events-none",
-          })
-        }
-      >
-        {countries.map(({ name, flags }) => (
-          <Option key={name} value={name} className="flex items-center gap-2">
-            <img
-              src={flags.svg}
-              alt={name}
-              className="h-5 w-5 rounded-full object-cover"
-            />
-            {name}
-          </Option>
-        ))}
-      </Select>
-    </div>
-  );
-}
-
-export function SelectInput({ data, label, value, setValue }) {
-  return (
-    <div className="w-80">
-      <Select
-        label={label}
-        value={value}
-        onChange={(datum) => {
-          console.log(datum);
-          setValue(datum);
-        }}
-      >
-        {data?.map((datum) => (
-          <Option
-            key={datum.stateCode}
-            value={datum.state}
-            className="text-lg text-gray-500 font-lato hover:!bg-red-50 active:bg-red-50 focus:bg-red-50"
-          >
-            {datum.state}
-          </Option>
-        ))}
-      </Select>
-    </div>
-  );
-}
+import CountriesSelect from "../../components/CountriesSelect";
+import { SelectInput } from "../../components/SelectInput";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -120,6 +62,7 @@ function LocationTracker({ lat, setLat, long, setLong }) {
     </div>
   );
 }
+
 export default function Service() {
   const [companyName, setCompanyName] = useState("");
   const [companyId, setCompanyId] = useState("");

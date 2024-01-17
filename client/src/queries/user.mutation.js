@@ -19,7 +19,7 @@ export const updateRegistrationMutation = (userData) => {
 export const serviceMutation = (serviceData) => {
   const { token } = serviceData;
   delete serviceData.token;
-  return axios.post("/service/create", serviceData, {
+  return axios.post("/services", serviceData, {
     headers: {
       Authorization: "Bearer " + token,
     },

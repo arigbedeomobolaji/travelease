@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
-import User from "./user.model.js";
+import User from "./userModel.js";
 
 const expiresIn = 1000 * 60 * 30;
 

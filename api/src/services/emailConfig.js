@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import AWS from "aws-sdk";
 import keys from "../config/keys.js";
-import Verification from "../models/verification.model.js";
+import Verification from "../models/verificationModel.js";
 import { generateCode } from "../utils/shared.js";
 
 AWS.config.update({

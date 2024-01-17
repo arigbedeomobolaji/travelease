@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
-import { serviceImageUpload } from "../controllers/upload.controller.js";
+import { serviceImageUpload } from "../controllers/uploadController.js";
 
 const uploadRouter = Router();
 

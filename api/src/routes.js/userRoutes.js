@@ -7,7 +7,7 @@ import {
   logoutUser,
   resendVerificationCode,
   verifyUser,
-} from "../controllers/user.controllers.js";
+} from "../controllers/userControllers.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const userRouter = Router();

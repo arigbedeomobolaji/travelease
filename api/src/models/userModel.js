@@ -89,7 +89,9 @@ userSchema.methods.generateAuthToken = async function () {
     const token = await jwt.sign(
       {
         _id: id,
-        ...userObject,
+        email: userObject.email,
+        isVerified: userObject.isVerified,
+        accountType: userObject.accountType,
       },
       tokenSecret,
       { expiresIn }

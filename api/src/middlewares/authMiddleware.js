@@ -1,16 +1,23 @@
 import createHttpError from "http-errors";
 import jwt from "jsonwebtoken";
 import keys from "../config/keys.js";
-import User from "../models/user.model.js";
+import User from "../models/userModel.js";
 const tokenSecret = keys.TOKEN_SECRET;
 
 export const authMiddleware = async (req, res, next) => {
   try {
+    // if no authorization header
+    if (!req.headers?.authorization) {
+      throw createHttpError.Unauthorized("Please Authenticate");
+    }
+
     const token = req.headers.authorization.replace("Bearer ", "").trim();
+    // If not a valid token format
     if (!token) {
       throw createHttpError.Unauthorized("Please Authenticate");
     }
     const decoded = await jwt.verify(token, tokenSecret);
+    // if not a valid token
     if (!decoded) {
       throw createHttpError.Unauthorized("Please Authenticate.");
     }
@@ -24,6 +31,11 @@ export const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    // if no authorization header
+    if (!req.headers?.authorization) {
+      next(createHttpError.Unauthorized("Please Authenticate"));
+      return;
+    }
     const userToken = req.headers.authorization.replace("Bearer ", "").trim();
 
     if (userToken) {

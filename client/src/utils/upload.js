@@ -14,7 +14,7 @@ export const getPresignedUrl = async (fileType, token) => {
   return response.data;
 };
 
-export const uploadToS3 = async (presignedUrl, file) => {
+export const uploadToS3 = async (presignedUrl, file, cb) => {
   const options = {
     headers: {
       "Content-Type": file.type,
@@ -23,7 +23,8 @@ export const uploadToS3 = async (presignedUrl, file) => {
       const percentCompleted = Math.round(
         (progressEvent.loaded * 100) / progressEvent.total
       );
-      console.log(`Upload Progress: ${percentCompleted}%`);
+      // console.log(`Upload Progress: ${percentCompleted}%`);
+      cb(percentCompleted);
     },
   };
 

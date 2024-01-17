@@ -8,10 +8,10 @@ import cookieParser from "cookie-parser";
 import { connectDatabase } from "./utils/db.js";
 import "./utils/worker.js";
 import keys from "./config/keys.js";
-import userRouter from "./routes.js/user.routes.js";
-// import createHttpError from "http-errors";
+import userRouter from "./routes.js/userRoutes.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-import uploadRouter from "./routes.js/upload.routes.js";
+import uploadRouter from "./routes.js/uploadRoutes.js";
+import serviceRouter from "./routes.js/serviceRoutes.js";
 
 const app = express();
 
@@ -46,13 +46,10 @@ app.get("/", async (req, res, next) => {
 // custom routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/uploads", uploadRouter);
+app.use("/api/v1/services", serviceRouter);
 
 // Error Middleware
 app.use(errorMiddleware);
-
-// app.use((error, req, res) => {
-//   console.log("Here", error);
-// });
 
 // start the server and database
 async function startServer(port) {

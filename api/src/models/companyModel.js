@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
 import keys from "../config/keys.js";
-import { expiresIn } from "../utils/sharedVar";
+import { expiresIn } from "../utils/sharedVar.js";
 import bcrypt from "bcryptjs";
 import createHttpError from "http-errors";
 

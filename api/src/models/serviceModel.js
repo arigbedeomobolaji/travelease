@@ -1,15 +1,19 @@
 import { Schema, model, Types } from "mongoose";
 
 const serviceSchema = new Schema({
-  serviceName: { type: String, required: true },
+  servicePackage: { type: String, required: true },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   serviceLocation: {
     city: String,
-    Country: String,
-    State: String,
+    country: String,
+    state: String,
   },
   serviceExactLocation: {
-    lat: String,
-    long: String,
+    lat: Number,
+    long: Number,
   },
   serviceDescription: { type: String, required: true },
   environs: [

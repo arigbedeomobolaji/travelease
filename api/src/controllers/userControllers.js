@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
-import User from "../models/user.model.js";
+import User from "../models/userModel.js";
 import { sendVerificationCode } from "../services/emailConfig.js";
-import Verification from "../models/verification.model.js";
+import Verification from "../models/verificationModel.js";
 
 export const createUser = async (req, res, next) => {
   try {

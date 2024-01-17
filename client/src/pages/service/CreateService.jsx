@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button, Input, Progress, Textarea } from "@material-tailwind/react";
 import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { serviceMutation } from "../../queries/user.mutation";
@@ -12,6 +12,9 @@ import { TiInfoLarge } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import ImageCompression from "../../components/images/ImageCompressor";
 import { getPresignedUrl, uploadToS3 } from "../../utils/upload";
+import CountriesSelect from "../../components/CountriesSelect";
+import { getStatesOfCountry } from "../../utils/countries";
+import { SelectInput } from "../../components/SelectInput";
 
 function InputIcon({ value, setValue, label, icon, readOnly }) {
   return (
@@ -58,20 +61,23 @@ function LocationTracker({ lat, setLat, long, setLong }) {
   );
 }
 export default function CreateService() {
-  const [serviceName, setServiceName] = useState("");
-  const [serviceDescription, setServiceDescription] = useState("");
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
-  const [serviceCity, setServiceCity] = useState("");
-  // const [serviceImages, setServiceImages] = useState([]);
-  // const dispatch = useDispatch();
-  const [files, setFiles] = useState([]);
-  const { handleOpenAuthModal } = useContext(AppContext);
   const user = useSelector(selectUser);
+  const { handleOpenAuthModal } = useContext(AppContext);
   const token = useSelector(selectToken);
   const navigate = useNavigate();
   const location = useLocation();
+  const [servicePackage, setServicePackage] = useState("");
+  const [serviceDescription, setServiceDescription] = useState("");
+  const [serviceCity, setServiceCity] = useState(user?.city);
+  const [serviceCountry, setServiceCountry] = useState(user?.country);
+  const [serviceState, setServiceState] = useState(user?.state);
+  const [lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
+  const [percentage, setPercentage] = useState(0);
   console.log(location.pathname);
+  // const [serviceImages, setServiceImages] = useState([]);
+  // const dispatch = useDispatch();
+  const [files, setFiles] = useState([]);
 
   const serviceCreationMutation = useMutation({
     mutationFn: serviceMutation,
@@ -84,6 +90,7 @@ export default function CreateService() {
     },
     onSuccess: (data) => {
       console.log(data);
+      navigate("/");
     },
   });
 
@@ -102,24 +109,39 @@ export default function CreateService() {
   async function handleCreateService() {
     // Get presignedUrl and Upload images to AWS;
     // handleUpload();
-    const serviceUrl = [];
-    if (files) {
-      for (let file of files) {
-        console.log(file);
-        const url = await getPresignedUrl(file.type, token);
-        await uploadToS3(url, file);
-        serviceUrl.push(url);
+    const serviceImageUrl = [];
+    try {
+      if (files) {
+        for (let file of files) {
+          console.log(file);
+          const { url, key } = await getPresignedUrl(file.type, token);
+          await uploadToS3(url, file, (uploadPercentage) => {
+            console.log(`Upload Progress: ${uploadPercentage}%`);
+            setPercentage(uploadPercentage);
+          });
+          serviceImageUrl.push(key);
+        }
       }
+    } catch (error) {
+      console.log(error);
     }
+
+    console.log(serviceImageUrl);
     serviceCreationMutation.mutate({
-      city: serviceCity,
+      serviceLocation: {
+        city: serviceCity,
+        country: serviceCountry,
+        state: serviceState,
+      },
       accountType: "services",
-      name: serviceName,
-      location: {
+      servicePackage,
+      serviceExactLocation: {
         lat,
         long,
       },
+      serviceImages: serviceImageUrl,
       token,
+      serviceDescription,
     });
   }
   if (!user) {
@@ -143,9 +165,9 @@ export default function CreateService() {
             readOnly
           />
           <InputIcon
-            value={serviceName}
-            setValue={setServiceName}
-            label="Service Name"
+            value={servicePackage}
+            setValue={setServicePackage}
+            label="Service Package"
           />
           <div className="w-80">
             <Textarea
@@ -154,6 +176,16 @@ export default function CreateService() {
               onChange={(e) => setServiceDescription(e.target.value)}
             />
           </div>
+          <CountriesSelect
+            country={serviceCountry}
+            setCountry={setServiceCountry}
+          />
+          <SelectInput
+            label="State"
+            data={getStatesOfCountry(serviceCountry)}
+            setValue={setServiceState}
+            value={serviceState}
+          />
           <InputIcon
             value={serviceCity}
             setValue={setServiceCity}
@@ -169,6 +201,12 @@ export default function CreateService() {
             <h1>Please provide photos of the service you&apos;re rendering.</h1>
             <ImageCompression files={files} setFiles={setFiles} />
           </div>
+          {!!percentage && (
+            <div>
+              <p>Uploading images</p>
+              <Progress value={percentage} label="Completed" />;
+            </div>
+          )}
           <Button color="red" className="w-80" onClick={handleCreateService}>
             Create
           </Button>
