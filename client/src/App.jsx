@@ -6,6 +6,7 @@ import ServicePage from "./pages/ServicePage";
 import "react-toastify/dist/ReactToastify.css";
 import Service from "./pages/service/Service";
 import CreateService from "./pages/service/CreateService";
+import NotFound from "./pages/NotFound";
 
 export const AppContext = createContext();
 
@@ -47,6 +48,7 @@ function App() {
             <Route path="/services/:serviceId" element={<ServicePage />} />
             <Route path="/service" element={<Service />} />
             <Route path="/service/create" element={<CreateService />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
