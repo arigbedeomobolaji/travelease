@@ -19,6 +19,7 @@
     "antd": "^5.12.8",
     "axios": "^1.6.5",
     "browser-image-compression": "^2.0.2",
+    "cloudinary-react": "^1.8.1",
     "country-state-city": "^3.2.1",
     "date-fns": "^3.2.0",
     "image-compressor": "^2.0.3",
