@@ -86,7 +86,7 @@ export default function LoginRegister({ label, setShowVerify }) {
   let canContinue = validator.isEmail(email) && !!password;
 
   function handleAuth() {
-    // code for handling Authentication Here
+    // code for handling Authentication Here.
     if (action === "Register") {
       mutation.mutate({ email, password });
     } else {
