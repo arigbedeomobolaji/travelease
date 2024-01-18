@@ -91,7 +91,7 @@ export default function LoginRegister({ label, setShowVerify }) {
       mutation.mutate({ email, password });
     } else {
       console.log(action, "here");
-      mutation.mutate({ email, password, route: "/login" });
+      mutation.mutate({ email, password, route: "login" });
     }
   }
 
