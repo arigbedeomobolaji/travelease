@@ -20,14 +20,19 @@ import StarIcon from "../components/StarIcon";
 import ThingsToKnow from "../components/ThignsToKnow";
 import { useSelector } from "react-redux";
 import { selectServices } from "../redux/slices/servicesSlice";
+import { services } from "../data/services";
 
 export default function ServicePage() {
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
   const { serviceId } = useParams();
   const dbService = useSelector(selectServices);
-  const service = dbService.find(
+  let service = dbService.find(
     (service) => service?._id.toString() === serviceId
   );
+
+  if (!service) {
+    service = services.find((service) => service?._id.toString() === serviceId);
+  }
 
   const { isVerySmallScreen, isTabletScreen } = useScreenSize();
   const [startDate, setStartDate] = useState(null);

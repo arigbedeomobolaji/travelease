@@ -13,3 +13,12 @@ export const getServiceQuery = (data) => {
   const { serviceId } = data.meta;
   return axios.get(`/services/${serviceId}`);
 };
+
+export const getServicesByLocation = (data) => {
+  const { query } = data.meta;
+  return axios.get(`/services/search`, {
+    params: {
+      ...query,
+    },
+  });
+};

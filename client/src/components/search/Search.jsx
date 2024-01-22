@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import Filter from "./Filter";
 import GuestsFilterMenu from "../GuestsFilterMenu";
 import BaseDatePicker from "../BaseDatePicker";
 import useScreenSize from "../../hooks/useScreenSize";
+import { useQuery } from "@tanstack/react-query";
+import { getServicesByLocation } from "../../queries/servicesQueries";
+import { useDispatch } from "react-redux";
+import { setServices } from "../../redux/slices/servicesSlice";
 
 function Boundary({ current }) {
   return (
@@ -23,12 +27,44 @@ export default function Search() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const { isTabletScreen } = useScreenSize();
+  const dispatch = useDispatch();
+  const getServicesByLocationQuery = useQuery({
+    queryKey: ["services", search],
+    meta: {
+      query: {
+        search,
+      },
+    },
+    queryFn: getServicesByLocation,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+    enabled: false,
+  });
+
+  useEffect(() => {
+    if (getServicesByLocationQuery.isSuccess) {
+      dispatch(setServices(getServicesByLocationQuery.data.data));
+    }
+  }, [
+    dispatch,
+    getServicesByLocationQuery.data,
+    getServicesByLocationQuery.isSuccess,
+  ]);
 
   const selectionRange = {
     startDate,
     endDate,
     key: "selection",
   };
+
+  function handleSearch() {
+    if (search) {
+      console.log("Why are you clicking me.");
+      getServicesByLocationQuery.refetch();
+    }
+  }
 
   function handleDateChange(ranges) {
     setStartDate(ranges.selection.startDate);
@@ -90,6 +126,7 @@ export default function Search() {
           readOnly
           current={current}
           setCurrent={setCurrent}
+          handleSearch={handleSearch}
         />
         {toggleGuest && (
           <div className="w-[300px] shadow-md absolute z-40 bg-white right-0 sm:right-52 lg:right-52  top-20">

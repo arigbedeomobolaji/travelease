@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
-import { MdHouseSiding, MdOutlineLocationOn } from "react-icons/md";
+import {
+  MdHouseSiding,
+  MdOutlineLocationOn,
+  MdOutlineSearch,
+} from "react-icons/md";
 import { FaFire } from "react-icons/fa";
 import { IoCarSportOutline } from "react-icons/io5";
 import { useState } from "react";
@@ -43,7 +47,7 @@ function SubFilter({ id, Icon, title, handleClick, active }) {
   );
 }
 
-export default function SubFilters() {
+export default function SubFilters({ setIsTrending }) {
   const [active, setActive] = useState("nearby");
 
   return (
@@ -55,7 +59,10 @@ export default function SubFilters() {
           Icon={Icon}
           title={title}
           active={active}
-          handleClick={() => setActive(id)}
+          handleClick={() => {
+            title === "Trending" ? setIsTrending(true) : setIsTrending(false);
+            setActive(id);
+          }}
         />
       ))}
     </div>

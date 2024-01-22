@@ -59,3 +59,19 @@ export const getService = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getServiceByLocation = async (req, res, next) => {
+  const { search } = req.query;
+  try {
+    const services = await Service.find({
+      $or: [
+        { "serviceLocation.state": new RegExp(search, "i") },
+        { "serviceLocation.city": new RegExp(search, "i") },
+      ],
+    });
+    // console.log(services);
+    res.status(200).json(services);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -15,4 +15,5 @@ export default {
   AWS_S3_REGION: process.env.AWS_S3_REGION,
   AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
   CLIENT_URL: process.env.CLIENT_URL,
+  SEND_GRID_API_KEY: process.env.SEND_GRID_API_KEY,
 };

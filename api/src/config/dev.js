@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default {
-  PORT: process.env.PORT,
-  MONGO_URL: process.env.MONGO_URL,
+  PORT: process.env.PORT || 3000,
+  MONGO_URL: "mongodb://localhost:27017/travelease" || process.env.MONGO_URL,
   SALT_ROUNDS: process.env.SALT_ROUNDS,
   TOKEN_SECRET: process.env.TOKEN_SECRET,
   AWS_SES_ACCESS_KEY: process.env.AWS_SES_ACCESS_KEY,
@@ -14,5 +14,6 @@ export default {
   AWS_S3_ARN: process.env.AWS_S3_ARN,
   AWS_S3_REGION: process.env.AWS_S3_REGION,
   AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
-  CLIENT_URL: process.env.CLIENT_URL,
+  CLIENT_URL: "http://localhost:5173" || process.env.CLIENT_URL,
+  SEND_GRID_API_KEY: process.env.SEND_GRID_API_KEY,
 };

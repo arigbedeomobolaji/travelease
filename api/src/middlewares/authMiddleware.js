@@ -45,10 +45,10 @@ export const authMiddleware = async (req, res, next) => {
 
       const user = await User.findById(data._id);
 
-      if (!user || !user.tokens.length) {
+      if (!user || !user?.tokens) {
         next(createHttpError.Unauthorized("Please Authenticate."));
       }
-      const tokenId = user.tokens.findIndex(
+      const tokenId = user?.tokens.findIndex(
         (token) => token.token === userToken
       );
       if (user && tokenId > -1) {

@@ -13,6 +13,7 @@ export default function Filter({
   title,
   current,
   setCurrent,
+  handleSearch,
   readOnly,
 }) {
   const { setToggleDate, setToggleGuest } = useContext(AppContext);
@@ -83,7 +84,10 @@ export default function Filter({
       )}
       {label === "guest" && (
         <div className="w-10 h-10 rounded-full p-3 bg-red-500 absolute top-3 hover:bg-white bottom-0 right-3 flex items-center justify-center">
-          <SearchOutlined className="text-white text-xl hover:text-red-500 flex items-center" />
+          <SearchOutlined
+            onClick={handleSearch}
+            className="text-white text-xl hover:text-red-500 flex items-center"
+          />
         </div>
       )}
     </div>
