@@ -65,4 +65,6 @@ async function startServer(port) {
   }
 }
 
-export default startServer;
+const PORT = keys.PORT;
+
+startServer(PORT);
